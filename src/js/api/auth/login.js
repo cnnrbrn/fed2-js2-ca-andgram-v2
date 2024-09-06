@@ -27,7 +27,7 @@ export async function handleLogin(email, password) {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ name: 'My API Key name' })
+      body: JSON.stringify({ name: 'My API Key' })
     });
 
     if (!apiKeyResponse.ok) {
