@@ -43,6 +43,8 @@ export async function handleLogin(email, password) {
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('apiKey', apiKey);
 
+    window.location.href = '/';
+
   } catch (error) {
     console.error('Error:', error.message);
     displayErrorMessage(error.message || 'An unknown error occurred. Please try again.');
