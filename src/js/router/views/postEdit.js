@@ -1,8 +1,8 @@
 // Import necessary functions
 import { authGuard } from "../../utilities/authGuard";
-import { getAuthorizationHeaders } from '../headers.js';
+import { getAuthorizationHeaders } from '../../api/headers.js';
 import { updatePost } from "../../api/post/update.js";
-import { updateFormWithPostData, getUpdatedPostData, setupSaveButton } from './ui.js';
+import { updateFormWithPostData, getUpdatedPostData, setupSaveButton } from '../../ui/post/update.js';
 import { API_SOCIAL_POSTS } from "../../api/constants.js";
 
 // Check if user is logged in
@@ -22,11 +22,14 @@ async function fetchPostData(postId) {
   return response.json();
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // Get post ID from URL query params
-  const postId = new URLSearchParams(window.location.search).get('id'); 
+console.log('view/postEdit is running')
 
-  // If ID present, run fetch function to get post data
+window.onload = async () => {
+  // Get post ID from URL query params
+  const postId = new URLSearchParams(window.location.search).get('id');
+  console.log('Post ID:', postId);
+
+  // If ID is present, run fetch function to get post data
   if (postId) {
     // Get the post data from the current post
     const postData = await fetchPostData(postId);
@@ -49,4 +52,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   } else {
     console.error('Post ID not found in URL');
   }
-});
+};

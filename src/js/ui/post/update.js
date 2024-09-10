@@ -1,11 +1,17 @@
 // Function to update the form with post data
 export function updateFormWithPostData(postData) {
-    document.getElementById('title').value = postData.title || '';
-    document.getElementById('body').value = postData.body || '';
-    document.getElementById('tags').value = postData.tags ? postData.tags.join(', ') : '';
-    document.getElementById('media-url').value = postData.media ? postData.media.url : '';
-    document.getElementById('media-alt').value = postData.media ? postData.media.alt : '';
-  }
+  const { title, body, tags, media } = postData.data; // Destructure the necessary fields
+
+  // Set the form values
+  document.getElementById('title').value = title || '';
+  document.getElementById('body').value = body || '';
+  document.getElementById('tags').value = tags ? tags.join(', ') : '';
+
+  // Handle media fields
+  document.getElementById('media-url').value = media?.url || '';  // Optional chaining
+  document.getElementById('media-alt').value = media?.alt || '';
+}
+
   
   // Function to collect data from the form
   export function getUpdatedPostData() {

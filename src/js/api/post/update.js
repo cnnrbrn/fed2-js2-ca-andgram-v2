@@ -1,10 +1,10 @@
-import { API_SOCIAL_PROFILES } from '../constants.js';
+import { API_SOCIAL_POSTS } from '../constants.js';
 import { getAuthorizationHeaders } from '../headers.js';
 
 // function for updating post with new data
 export async function updatePost(postId, postData) {
     // send PUT request to update post
-  const response = await fetch(`${API_SOCIAL_PROFILES}/andgram/posts/${postId}`, {
+  const response = await fetch(`${API_SOCIAL_POSTS}/${postId}`, {
     method: 'PUT',
     headers: {
       ...getAuthorizationHeaders(),
