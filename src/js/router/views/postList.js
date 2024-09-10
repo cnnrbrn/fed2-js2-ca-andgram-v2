@@ -1,5 +1,5 @@
 
-import { getAuthorizationHeaders } from '../../api/headers.js'; // Importer funksjon for å hente autorisasjonsoverskrifter
+import { getAuthorizationHeaders } from '../../api/headers.js';
 
 // Funksjon for å vise brukerens innlegg
 export async function displayUserPosts() {
@@ -10,7 +10,7 @@ export async function displayUserPosts() {
             method: 'GET',
             headers: getAuthorizationHeaders(),
         });
-        
+
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
@@ -28,15 +28,32 @@ export async function displayUserPosts() {
         const postContainer = document.getElementById('posts-container');
         if (postContainer) {
             if (posts.length > 0) {
+                // Generate HTML for each post
                 postContainer.innerHTML = posts.map(post => `
-                    <div class="post">
-                        <h2>${post.title}</h2>
-                        <p>${post.body || ''}</p>
-                    </div>
+                    <a href="/post/${post.id}" class="post-link">
+                        <div class="post">
+                            <img src="${post.media.url}">
+                            <h2>${post.title}</h2>
+                        </div>
+                    </a>
                 `).join('');
+
+                // Add click event for each post link
+                const postLinks = document.querySelectorAll('.post-link');
+                postLinks.forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();  // Prevent default link behavior
+                        const postId = link.getAttribute('href').split('/').pop();  // Get the post ID from the URL
+                        if (postId) {
+                            // Navigate to the page with post details
+                            window.location.href = `/post/?id=${postId}`;
+                        }
+                    });
+                });
             } else {
                 postContainer.innerHTML = "<p>No posts available.</p>";
             }
+
         } else {
             console.error('Post container not found');
         }
