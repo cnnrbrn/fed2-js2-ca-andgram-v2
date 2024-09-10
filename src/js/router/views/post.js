@@ -1,5 +1,6 @@
 import { API_SOCIAL_POSTS } from '../../api/constants.js';
 import { getAuthorizationHeaders } from '../../api/headers.js';
+import { deletePostById } from '../../api/post/delete.js';
 
 // Get post ID from URL
 const postId = new URLSearchParams(window.location.search).get('id');
@@ -54,3 +55,8 @@ async function displayPost() {
   }
   
  displayPost();
+
+// Add event listener for the delete button
+document.getElementById('delete-post-btn').addEventListener('click', () => {
+  deletePostById(postId);
+});
