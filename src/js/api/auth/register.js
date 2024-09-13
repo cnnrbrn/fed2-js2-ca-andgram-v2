@@ -6,7 +6,7 @@ export async function register({
   password
 }) {
 
-  const response = await fetch('https://v2.api.noroff.dev/auth/register', {
+  const response = await fetch(API_AUTH_REGISTER, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
