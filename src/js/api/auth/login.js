@@ -43,6 +43,9 @@ export async function handleLogin(email, password) {
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('apiKey', apiKey);
 
+    // Set a flag indicating successful login
+    localStorage.setItem('showGreeting', 'true'); 
+
     window.location.href = '/';
 
   } catch (error) {
