@@ -1,17 +1,12 @@
-export function handleLogout() {
-    try {
-      // remove tokens from localstorage
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('apiKey');
-  
-      // redirect user to login page
-      window.location.href = '/auth/login/';
-    } catch (error) {
-      console.error('Error during logout:', error.message);
-      // Show error to user
-      alert('An error occurred while logging out. Please try again.');
-    }
-  }
-  
+import { clearLocalStorage } from '../common/logoutUtils.js';
+
+export function handleGlobalLogout() {
+    clearLocalStorage();
+    
+    window.location.href = '/';
+}
+
+document.getElementById('logout-button').addEventListener('click', handleGlobalLogout);
+
 
 
