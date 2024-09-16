@@ -12,22 +12,27 @@
     <form name="createPost">
       <div>
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" required maxlength="100">
+        <input type="text" id="title" name="title" required maxlength="20" placeholder="Enter the title of your post">
       </div>
 
       <div>
         <label for="body">Body</label>
-        <textarea id="body" name="body" required></textarea>
+        <textarea id="body" name="body" required placeholder="Enter the content of your post"></textarea>
       </div>
 
       <div>
-        <label for="tags">Tags (comma separated)</label>
-        <input type="text" id="tags" name="tags">
+        <label for="tags">Tags</label>
+        <input type="text" id="tags" name="tags" placeholder="Enter tags separated by commas">
       </div>
 
       <div>
         <label for="media">Media URL</label>
-        <input type="url" id="media" name="media">
+        <input type="url" id="media" name="media" placeholder="Enter the URL of the media">
+      </div>
+
+      <div>
+        <label for="alt">Media Alt Text</label>
+        <input type="text" id="alt" name="alt" placeholder="Describe the media" maxlength="100">
       </div>
 
       <button type="submit">Create Post</button>

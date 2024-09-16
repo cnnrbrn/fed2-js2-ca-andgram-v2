@@ -49,10 +49,7 @@ export default async function router(pathname = window.location.pathname) {
         
         // Load postList.js to display the user's posts on the profile page
         console.log('Loading postList.js to display posts on the profile page');
-        const { displayUserPosts } = await import("./views/postList.js");
-        
-        // Call the function to display posts on the profile page
-        displayUserPosts();
+        import("./views/postList.js");
         break;
 
     default:
