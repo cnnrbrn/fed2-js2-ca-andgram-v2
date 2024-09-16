@@ -1,5 +1,5 @@
 
-import { handleLogout } from './logout.js';
+import { handleAuthLogout } from '../auth/logout';
 
 export function updateNav() {
     
@@ -24,7 +24,7 @@ export function updateNav() {
       
       if (logoutButton) {
         logoutButton.addEventListener('click', () => {
-          handleLogout();
+          handleAuthLogout();
         });
     }
   }

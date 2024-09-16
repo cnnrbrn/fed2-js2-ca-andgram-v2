@@ -1,10 +1,8 @@
-import { clearLocalStorage } from '../common/logoutUtils.js';
+import { clearLocalStorage } from '../../utilities/clearLocalStorage';
 
 export function handleAuthLogout() {
     clearLocalStorage();
 
     // Redirect to the login page
-    window.location.href = '/login';
+    window.location.href = '/auth/';
 }
-
-document.getElementById('logout-button').addEventListener('click', handleAuthLogout);
