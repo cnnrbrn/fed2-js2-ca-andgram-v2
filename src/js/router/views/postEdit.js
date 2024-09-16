@@ -46,6 +46,7 @@ window.onload = async () => {
 
       if (result) {
         console.log('Post updated successfully:', result);
+        window.location.href = `/post/?id=${postId}`;
         // Optionally redirect to another page or show a success message
       }
     });

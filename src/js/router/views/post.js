@@ -2,6 +2,8 @@ import { deletePostById } from '../../api/post/delete.js';
 import { readPost } from '../../api/post/read.js';
 import { getPostIdFromURL } from '../../utilities/getPostId.js';
 
+
+
 async function displaySinglePost() {
     const postId = getPostIdFromURL();
 
@@ -17,6 +19,11 @@ async function displaySinglePost() {
             // Display post title and body
             document.getElementById('post-title').textContent = postData.title || 'Untitled';
             document.getElementById('post-body').textContent = postData.body || 'No content';
+
+            const editButton = document.getElementById('edit-post-btn');
+            editButton.addEventListener('click', () => {
+            window.location.href = `/post/edit/?id=${postId}`;
+        });
 
             // Display post media if available 
             const postMedia = document.getElementById('post-media');
