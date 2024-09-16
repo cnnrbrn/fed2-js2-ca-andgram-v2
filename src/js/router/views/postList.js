@@ -1,63 +1,41 @@
+import { readPostsByUser } from "../../api/post/read";
 
-import { getAuthorizationHeaders } from '../../api/headers.js';
-
-// Funksjon for å vise brukerens innlegg
-export async function displayUserPosts() {
-    console.log("displayUserPosts function called.");
+export async function loadPosts() {
+    const username = 'andgram'; // Replace with dynamic username if needed
+    const limit = 12; // Number of posts to display per page
+    const page = 1; // Current page number
+    const tag = ''; // Optional tag to filter posts
 
     try {
-        const response = await fetch('https://v2.api.noroff.dev/social/profiles/andgram/posts', {
-            method: 'GET',
-            headers: getAuthorizationHeaders(),
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
-
-        const data = await response.json();
-        console.log('Data received:', data);
-
-        const posts = data.data; // Sørg for at data.data er en array av innlegg
-        console.log('Posts:', posts);
-
-        if (!Array.isArray(posts)) {
-            throw new Error('Posts data is not an array');
-        }
-
-        const postContainer = document.getElementById('posts-container');
-        if (postContainer) {
-            if (posts.length > 0) {
-                // Generate HTML for each post
-                postContainer.innerHTML = posts.map(post => `
-                    <a href="/post/${post.id}" class="post-link">
-                        <div class="post">
-                            <img src="${post.media.url}">
-                            <h2>${post.title}</h2>
-                        </div>
-                    </a>
-                `).join('');
-
-                // Add click event for each post link
-                const postLinks = document.querySelectorAll('.post-link');
-                postLinks.forEach(link => {
-                    link.addEventListener('click', (event) => {
-                        event.preventDefault();  // Prevent default link behavior
-                        const postId = link.getAttribute('href').split('/').pop();  // Get the post ID from the URL
-                        if (postId) {
-                            // Navigate to the page with post details
-                            window.location.href = `/post/?id=${postId}`;
-                        }
-                    });
-                });
-            } else {
-                postContainer.innerHTML = "<p>No posts available.</p>";
-            }
-
-        } else {
-            console.error('Post container not found');
-        }
+        const postsData = await readPostsByUser(username, limit, page, tag);
+        updateHomePageWithPosts(postsData);
     } catch (error) {
-        console.error('Error displaying posts:', error);
+        console.error('Error loading posts:', error);
     }
 }
+
+function updateHomePageWithPosts(postsData) {
+    const postContainer = document.getElementById('posts-container');
+    if (postContainer) {
+        if (postsData.data.length > 0) {
+            postContainer.innerHTML = postsData.data.map(post => {
+                const mediaUrl = post.media && post.media.url ? post.media.url : 'default-image-url.jpg'; // Provide a default image if needed
+                const mediaAlt = post.media && post.media.alt ? post.media.alt : 'Post image'; // Provide a default alt text if needed
+                
+                return `
+                    <a href="/post/?id=${post.id}" class="post-link">
+                        <div class="post">
+                            <img src="${mediaUrl}" alt="${mediaAlt}">
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        } else {
+            postContainer.innerHTML = "<p>No posts available.</p>";
+        }
+    } else {
+        console.error('Post container not found');
+    }
+}
+
+loadPosts();

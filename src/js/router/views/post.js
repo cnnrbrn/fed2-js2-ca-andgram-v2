@@ -10,24 +10,28 @@ async function displaySinglePost() {
         return;
     }
 
-    const postData = await readPost(postId);
+    try {
+        const postData = await readPost(postId);
 
-    if (postData) {
-        // Display post title and body
-        document.getElementById('post-title').textContent = postData.title || 'Untitled';
-        document.getElementById('post-body').textContent = postData.body || 'No content';
+        if (postData) {
+            // Display post title and body
+            document.getElementById('post-title').textContent = postData.title || 'Untitled';
+            document.getElementById('post-body').textContent = postData.body || 'No content';
 
-        // Display post media if available 
-        const postMedia = document.getElementById('post-media');
-        if (postData.media && postData.media.url) {
-            postMedia.src = postData.media.url;
-            postMedia.alt = postData.media.alt || 'Post image';
-            postMedia.style.display = 'block'; // Make the image visible
+            // Display post media if available 
+            const postMedia = document.getElementById('post-media');
+            if (postData.media && postData.media.url) {
+                postMedia.src = postData.media.url;
+                postMedia.alt = postData.media.alt || 'Post image';
+                postMedia.style.display = 'block'; // Make the image visible
+            } else {
+                postMedia.style.display = 'none'; // Hide if no media
+            }
         } else {
-            postMedia.style.display = 'none'; // Hide if no media
+            console.error('Post data is empty or undefined');
         }
-    } else {
-        console.error('Post data is empty or undefined');
+    } catch (error) {
+        console.error('Error fetching post:', error);
     }
 }
 
@@ -35,5 +39,8 @@ displaySinglePost();
 
 // Add event listener for the delete button
 document.getElementById('delete-post-btn').addEventListener('click', () => {
-  deletePostById(postId);
+    const postId = getPostIdFromURL(); // Ensure the post ID is retrieved correctly
+    if (postId) {
+        deletePostById(postId);
+    }
 });
