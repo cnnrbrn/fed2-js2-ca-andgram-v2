@@ -18,7 +18,7 @@ export async function readPost(id) {
         const responseData = await response.json();
         console.log('Response data received:', responseData);
 
-        // Access the actual post data
+        // Access post data
         const postData = responseData.data;
         console.log('Post data:', postData);
 
@@ -29,11 +29,6 @@ export async function readPost(id) {
         return null; // Return null in case of error
     }
 }
-
-// Not used for now
-export async function readPosts(limit = 12, page = 1, tag) {}
-
-
 
 export async function readPostsByUser(username, limit = 12, page = 1, tag) {
     try {
