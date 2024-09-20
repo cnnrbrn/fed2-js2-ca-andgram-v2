@@ -1,7 +1,7 @@
 import { authGuard } from "../../utilities/authGuard.js";
 import { updateNav } from "../../ui/global/nav.js";
 import { checkAllStatuses } from "../../ui/global/successPopup.js";
-import { readProfile, displaySearchResults } from "../../api/profile/read.js";
+import { readProfile } from "../../api/profile/read.js";
 
 // check if user is athenticated
 authGuard();
