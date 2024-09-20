@@ -25,14 +25,14 @@ export async function deletePostById(postId) {
 
     if (response.ok) {
       localStorage.setItem('deletePostSuccess', 'true'); 
-      window.location.href = '/profile/'; // Redirect to profile or other page
+      window.location.href = '/profile/'; // Redirect to profile page
     } else {
       const errorData = await response.json();
       console.error('Failed to delete post:', errorData);
-      alert(`Failed to delete post: ${errorData.message}`);
+      throw new Error(errorData.message); // Throw error to be handled in UI
     }
   } catch (error) {
     console.error('Error deleting post:', error);
-    alert('Error deleting post. Please try again later.');
+    throw new Error('Error deleting post. Please try again later.'); // Throw error to be handled in UI
   }
 }
