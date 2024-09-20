@@ -24,7 +24,7 @@ export async function deletePostById(postId) {
     });
 
     if (response.ok) {
-      alert('Post deleted successfully!');
+      localStorage.setItem('deletePostSuccess', 'true'); 
       window.location.href = '/profile/'; // Redirect to profile or other page
     } else {
       const errorData = await response.json();

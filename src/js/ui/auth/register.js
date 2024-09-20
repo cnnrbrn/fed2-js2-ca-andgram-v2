@@ -13,6 +13,7 @@ export async function onRegister(event) {
       email,
       password
     });
+    localStorage.setItem('registerSuccess', 'true'); 
     console.log('Registration successful', userData);
     // Redirect to login page or another page
     window.location.href = "/auth/login/";

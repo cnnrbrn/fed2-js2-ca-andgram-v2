@@ -1,5 +1,9 @@
 import { onCreatePost } from "../../ui/post/create";
 import { authGuard } from "../../utilities/authGuard";
+import { checkAllStatuses } from "../../ui/global/successPopup";
+
+// Show popup
+window.onload = checkAllStatuses();
 
 authGuard();
 

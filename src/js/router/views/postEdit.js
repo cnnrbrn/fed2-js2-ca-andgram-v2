@@ -4,6 +4,10 @@ import { getAuthorizationHeaders } from '../../api/headers.js';
 import { updatePost } from "../../api/post/update.js";
 import { updateFormWithPostData, getUpdatedPostData, setupSaveButton } from '../../ui/post/update.js';
 import { API_SOCIAL_POSTS } from "../../api/constants.js";
+import { checkAllStatuses } from "../../ui/global/successPopup.js";
+
+// Show popup
+window.onload = checkAllStatuses();
 
 // Check if user is logged in
 authGuard();
@@ -46,6 +50,7 @@ window.onload = async () => {
 
       if (result) {
         console.log('Post updated successfully:', result);
+        localStorage.setItem('updateSuccess', 'true');
         window.location.href = `/post/?id=${postId}`;
         // Optionally redirect to another page or show a success message
       }

@@ -1,8 +1,10 @@
 import { deletePostById } from '../../api/post/delete.js';
 import { readPost } from '../../api/post/read.js';
 import { getPostIdFromURL } from '../../utilities/getPostId.js';
+import { checkAllStatuses } from '../../ui/global/successPopup.js';
 
-
+// Show popup
+window.onload = checkAllStatuses();
 
 async function displaySinglePost() {
     const postId = getPostIdFromURL();

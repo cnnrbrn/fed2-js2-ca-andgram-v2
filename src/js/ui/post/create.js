@@ -11,7 +11,8 @@ export async function onCreatePost(event) {
   const alt = form.elements.alt.value; // Capture alt text
 
   try {
-    await createPost({ title, body, tags, media, alt }); // Pass both media and alt
+    await createPost({ title, body, tags, media, alt });
+    localStorage.setItem('newPostSuccess', 'true');
     console.log('Post created successfully');
     window.location.href = '/profile/';
 
