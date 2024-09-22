@@ -1,4 +1,4 @@
-import { API_SOCIAL_PROFILES, API_SOCIAL_POSTS } from '../../api/constants.js';
+import { API_SOCIAL_POSTS } from '../../api/constants.js';
 import { getAuthorizationHeaders } from '../../api/headers.js';
 
 // Fetch post data for single post
@@ -30,23 +30,6 @@ export async function readPost(id) {
     }
 }
 
-export async function readPostsByUser(username, limit = 12, page = 1, tag) {
-    try {
-        const response = await fetch(`${API_SOCIAL_PROFILES}/${username}/posts?limit=${limit}&page=${page}&tag=${tag || ''}`, {
-            method: 'GET',
-            headers: getAuthorizationHeaders()
-        });
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch posts');
-        }
-
-        const responseData = await response.json();
-        return responseData;  // Return the posts data to be used elsewhere
-    } catch (error) {
-        console.error('Error fetching posts by user:', error);
-        return { data: [] };  // Return an empty array on error
-    }
-}
-
-
+// When post in list of post is clicked, Go to link with post ID in URL
+// Execute "readPost(id)" function and pass in ID from URL

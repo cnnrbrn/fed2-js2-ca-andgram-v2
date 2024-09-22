@@ -1,66 +1,80 @@
 console.log('Router is running');
 
 export default async function router(pathname = window.location.pathname) {
-
-  // Normalize the pathname by removing any '/index.html' at the end
+  // Normalize the pathname by removing any trailing '/index.html'
   pathname = pathname.replace(/\/index\.html$/, '');
 
-  // Get the query string (e.g., ?name=andgram, ?name=johndoe)
+  // Get the query parameters (e.g., ?id=335)
   const searchParams = new URLSearchParams(window.location.search);
+  const postId = searchParams.get('id'); // Get post ID from query
 
-  switch (pathname) {
-    case "/":
-      console.log('Loading home.js');
-      await import("./views/home.js");
-      break;
+  // Log the current pathname and query parameters for debugging
+  console.log('Current pathname:', pathname);
+  console.log('Query parameters:', Object.fromEntries(searchParams.entries()));
 
-    case "/auth/":
-      console.log('Loading auth.js');
-      await import("./views/auth.js");
-      break;
+  try {
+    switch (pathname) {
+      case "/":
+        console.log('Loading home.js');
+        await import("./views/home.js");
+        break;
 
-    case "/auth/login/":
-      console.log('Loading login.js');
-      await import("./views/login.js");
-      break;
+      case "/auth/":
+        console.log('Loading auth.js');
+        await import("./views/auth.js");
+        break;
 
-    case "/auth/register/":
-      console.log('Loading register.js');
-      await import("./views/register.js");
-      break;
+      case "/auth/login/":
+        console.log('Loading login.js');
+        await import("./views/login.js");
+        break;
 
-    case "/post/":
-      console.log('Loading post.js');
-      await import("./views/post.js");
-      break;
+      case "/auth/register/":
+        console.log('Loading register.js');
+        await import("./views/register.js");
+        break;
 
-    case "/post/edit/":
-      console.log('Loading postEdit.js');
-      await import("./views/postEdit.js");
-      break;
+      // Handle URLs like /post/index.html?id=335
+      case "/post":
+      case "/post/":
+        if (postId) {
+          console.log(`Loading post.js for post with ID: ${postId}`);
+          await import("./views/post.js");
+        } else {
+          console.error('Post ID not found in query parameters');
+          await import("./views/notFound.js");
+        }
+        break;
 
-    // Handle both "/post/create" and "/post/create/"
-    case "/post/create":
-    case "/post/create/":
-      console.log('Loading postCreate.js');
-      await import("./views/postCreate.js");
-      break;
+      case "/post/edit/":
+        console.log('Loading postEdit.js');
+        await import("./views/postEdit.js");
+        break;
 
-    // Handle profile page, even when using '/profile/index.html?name=someusername'
-    case "/profile":
-      console.log('Loading profile.js');
-      await import("./views/profile.js");
+      case "/post/create/":
+        console.log('Loading postCreate.js');
+        await import("./views/postCreate.js");
+        break;
 
-      // Dynamically fetch the profile name from the query string (e.g., ?name=someusername)
-      const profileName = searchParams.get('name');
-      if (profileName) {
-        console.log(`Loading postList.js for profile: ${profileName}`); // Log the dynamic profile name
-        await import("./views/postList.js");
-      }
-      break;
+      case "/profile/":
+        console.log('Loading profile.js');
+        await import("./views/profile.js");
 
-    default:
-      console.log(`Page not found for ${pathname}, loading notFound.js`);
-      await import("./views/notFound.js");
+        const profileName = searchParams.get('name');
+        if (profileName) {
+          console.log(`Loading postList.js for profile: ${profileName}`);
+          await import("./views/postList.js");
+        } else {
+          console.error('Profile name not found in query parameters');
+        }
+        break;
+
+      default:
+        console.log(`Page not found for ${pathname}, loading notFound.js`);
+        await import("./views/notFound.js");
+    }
+  } catch (error) {
+    console.error('Error in router:', error);
+    await import("./views/notFound.js");
   }
 }

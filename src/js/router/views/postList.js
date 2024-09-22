@@ -54,16 +54,25 @@ export function displayPosts(postsData) {
     // Display up to the initial displayedPostsCount number of posts (12 latest posts)
     const postsToShow = allPosts.slice(0, displayedPostsCount);
     postsToShow.forEach(post => {
+        const postId = post.id;  // Get the post ID
         const imageUrl = post.media?.url; // Safely access media URL
         const altText = post.media?.alt || 'Post image'; // Default alt text
 
         if (imageUrl) {
+            // Create a link element (<a>) that wraps around the image
+            const linkElement = document.createElement('a');
+            linkElement.href = `/post/index.html?id=${postId}`;  // Set link with post ID parameter
+
             const imgElement = document.createElement('img');
             imgElement.src = imageUrl;
             imgElement.alt = altText;
             imgElement.className = 'post-image'; // Add CSS class for styling
 
-            postsContainer.appendChild(imgElement);
+            // Append the image inside the link element
+            linkElement.appendChild(imgElement);
+
+            // Append the link (which wraps the image) to the posts container
+            postsContainer.appendChild(linkElement);
         }
     });
 

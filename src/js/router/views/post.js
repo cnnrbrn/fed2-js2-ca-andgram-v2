@@ -3,11 +3,15 @@ import { readPost } from '../../api/post/read.js';
 import { getPostIdFromURL } from '../../utilities/getPostId.js';
 import { checkAllStatuses } from '../../ui/global/successPopup.js';
 
-// Show popup
-window.onload = checkAllStatuses();
+// Ensure checkAllStatuses is called on window load
+window.onload = function() {
+    checkAllStatuses(); // Ensure this runs after the page has fully loaded
+    displaySinglePost(); // Load and display the post once the page loads
+};
 
+// Function to display a single post
 async function displaySinglePost() {
-    const postId = getPostIdFromURL();
+    const postId = getPostIdFromURL(); // Fetch the post ID from the URL
 
     if (!postId) {
         console.error('Post ID not found');
@@ -15,6 +19,7 @@ async function displaySinglePost() {
     }
 
     try {
+        // Fetch the post data by post ID
         const postData = await readPost(postId);
 
         if (postData) {
@@ -22,19 +27,22 @@ async function displaySinglePost() {
             document.getElementById('post-title').textContent = postData.title || 'Untitled';
             document.getElementById('post-body').textContent = postData.body || 'No content';
 
-            const editButton = document.getElementById('edit-post-btn');
-            editButton.addEventListener('click', () => {
-            window.location.href = `/post/edit/?id=${postId}`;
-        });
-
-            // Display post media if available 
+            // Display post media if available
             const postMedia = document.getElementById('post-media');
             if (postData.media && postData.media.url) {
                 postMedia.src = postData.media.url;
                 postMedia.alt = postData.media.alt || 'Post image';
                 postMedia.style.display = 'block'; // Make the image visible
             } else {
-                postMedia.style.display = 'none'; // Hide if no media
+                postMedia.style.display = 'none'; // Hide the media element if no image is present
+            }
+
+            // Attach event listener for the edit button
+            const editButton = document.getElementById('edit-post-btn');
+            if (editButton) {
+                editButton.addEventListener('click', () => {
+                    window.location.href = `/post/edit/?id=${postId}`;
+                });
             }
         } else {
             console.error('Post data is empty or undefined');
@@ -44,12 +52,19 @@ async function displaySinglePost() {
     }
 }
 
-displaySinglePost();
-
 // Add event listener for the delete button
-document.getElementById('delete-post-btn').addEventListener('click', () => {
-    const postId = getPostIdFromURL(); // Ensure the post ID is retrieved correctly
-    if (postId) {
-        deletePostById(postId);
-    }
-});
+const deleteButton = document.getElementById('delete-post-btn');
+if (deleteButton) {
+    deleteButton.addEventListener('click', async () => {
+        const postId = getPostIdFromURL(); // Retrieve the post ID
+        if (postId) {
+            try {
+                await deletePostById(postId); // Ensure deletePostById is async
+                console.log('Post deleted successfully');
+                window.location.href = '/'; // Redirect after deletion (optional)
+            } catch (error) {
+                console.error('Error deleting post:', error);
+            }
+        }
+    });
+}
