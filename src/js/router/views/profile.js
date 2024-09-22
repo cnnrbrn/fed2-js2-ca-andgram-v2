@@ -1,16 +1,24 @@
 import { authGuard } from "../../utilities/authGuard";
 import { checkAllStatuses } from "../../ui/global/successPopup";
+import { loadProfileHeader, displayProfileHeader } from "../../api/profile/read";
 
-// Show popup
-window.onload = checkAllStatuses();
+// Call functions with proper handling for async functions
+window.onload = async function() {
+    try {
+        checkAllStatuses();
 
-authGuard();
+        const profileData = await loadProfileHeader();
+        console.log(profileData);
+        
+        if (profileData) {
+            displayProfileHeader(profileData); // Pass the profileData directly
+        } else {
+            console.error('Failed to load profile data');
+        }
 
-export function initProfilePage() {
-    console.log('Initializing profile page');
+        authGuard();
+    } catch (error) {
+        console.error('Error during window load:', error);
+    }
+};
 
-    // Initialiser profilspesifikke detaljer her (hvis aktuelt)
-}
-
-// Kall initProfilePage når profil-siden lastes
-document.addEventListener('DOMContentLoaded', initProfilePage);

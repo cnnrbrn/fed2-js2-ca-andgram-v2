@@ -8,19 +8,20 @@
     <script type="module" src="/src/app.js"></script>
   </head>
   <body>
-    <h1>Profile</h1>
-
-    <div id="successPopup">Message</div>
-    <form name="updateProfile">
-      <button>Update Profile</button>
-    </form>
-    <a id="createPostLink" href="/post/create/index.html">Create new post</a>
-    
-
-    <div id="posts-container"></div>
-    
-
+        <!-- feth post and user data and append to this -->
+        <div id="profile-header">
+          <div id="banner-container">
+            
+              <img id="banner-image" alt="User's banner" />
+          </div>
+          <div id="profile-pic-container">
+              <img id="profile-image" alt="User's profile picture" />
+          </div>
+          <h2 id="profile-name">Profile name</h2>
+      </div>
+     <div id="posts-container"></div>
+     <button id="load-more-button" style="display: none;">Load All Posts</button>
+     
   
-
   </body>
 </html>

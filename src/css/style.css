@@ -208,3 +208,37 @@ img {
 .modal button:hover {
   opacity: 0.8;
 }
+
+/* ====================
+    Profile header
+   ==================== */
+   
+   #profile-name {
+ 
+   }   
+   #profile-header {
+     text-align: center;
+     margin-bottom: 20px;
+   }
+   #banner-container {
+     width: 100%;
+   }
+   #banner-image {
+     width: 100%;
+     height: auto;
+     max-height: 300px;
+     object-fit: cover;
+   }
+   #profile-pic-container {
+     margin-top: -50px;
+     display: inline-block;
+     border-radius: 50%;
+     overflow: hidden;
+     border: 3px solid white;
+   }
+   #profile-image {
+     width: 100px;
+     height: 100px;
+     object-fit: cover;
+   }
+   

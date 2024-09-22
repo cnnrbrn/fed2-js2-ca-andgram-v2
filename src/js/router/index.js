@@ -5,12 +5,15 @@ export default async function router(pathname = window.location.pathname) {
   // Normalize the pathname by removing any '/index.html' at the end
   pathname = pathname.replace(/\/index\.html$/, '');
 
+  // Get the query string (e.g., ?name=andgram, ?name=johndoe)
+  const searchParams = new URLSearchParams(window.location.search);
+
   switch (pathname) {
     case "/":
       console.log('Loading home.js');
       await import("./views/home.js");
       break;
-      
+
     case "/auth/":
       console.log('Loading auth.js');
       await import("./views/auth.js");
@@ -43,14 +46,18 @@ export default async function router(pathname = window.location.pathname) {
       await import("./views/postCreate.js");
       break;
 
-      case "/profile/":
-        console.log('Loading profile.js');
-        await import("./views/profile.js");
-        
-        // Load postList.js to display the user's posts on the profile page
-        console.log('Loading postList.js to display posts on the profile page');
-        import("./views/postList.js");
-        break;
+    // Handle profile page, even when using '/profile/index.html?name=someusername'
+    case "/profile":
+      console.log('Loading profile.js');
+      await import("./views/profile.js");
+
+      // Dynamically fetch the profile name from the query string (e.g., ?name=someusername)
+      const profileName = searchParams.get('name');
+      if (profileName) {
+        console.log(`Loading postList.js for profile: ${profileName}`); // Log the dynamic profile name
+        await import("./views/postList.js");
+      }
+      break;
 
     default:
       console.log(`Page not found for ${pathname}, loading notFound.js`);
