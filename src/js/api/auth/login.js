@@ -1,14 +1,15 @@
 import { API_AUTH_LOGIN, API_AUTH_KEY } from '../constants.js';
+import { getAuthorizationHeaders } from '../headers.js';
 
 export async function handleLogin(email, password) {
   try {
-    // Make a POST request to login endpoint
+    // Gjør en POST-forespørsel til innloggingsendepunktet
     const response = await fetch(API_AUTH_LOGIN, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {
@@ -16,18 +17,18 @@ export async function handleLogin(email, password) {
       throw new Error(errorData.message || 'Failed to login');
     }
 
-    // Extract access token from response
+    // Hent access token fra svaret
     const { data } = await response.json();
     const accessToken = data.accessToken;
 
-    // Create API key using access token
+    // Lag API-nøkkel ved hjelp av access token
     const apiKeyResponse = await fetch(API_AUTH_KEY, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: 'My API Key' })
+      body: JSON.stringify({ name: 'My API Key' }),
     });
 
     if (!apiKeyResponse.ok) {
@@ -35,22 +36,47 @@ export async function handleLogin(email, password) {
       throw new Error(errorData.message || 'Failed to create API key');
     }
 
-    // Extract API key from response
+    // Hent API-nøkkelen fra svaret
     const apiKeyData = await apiKeyResponse.json();
     const apiKey = apiKeyData.data.key;
 
-    // Store access token and API key in local storage
+    // Lagre access token og API-nøkkel i local storage
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('apiKey', apiKey);
 
-    // Set a flag indicating successful login
-    localStorage.setItem('loginSuccess', 'true'); 
+    // Be om brukernavn fra brukeren
+    const username = prompt('Vennligst bekreft brukernavnet ditt:');
+    if (username) {
+      // Valider brukernavnet mot e-posten
+      const headers = getAuthorizationHeaders(); // Flytter headerdeklasjonen utenfor fetch
+      const profileResponse = await fetch(`https://v2.api.noroff.dev/social/profiles/${username}`, {
+        method: 'GET',
+        headers, // Bruker headers objektet her
+      });
 
-    // Redirect user to home page
+      if (!profileResponse.ok) {
+        throw new Error('Brukernavn eksisterer ikke eller uautorisert tilgang');
+      }
+
+      const profileData = await profileResponse.json();
+      const userEmail = profileData.data.email; // Assuming email is part of the returned data
+      console.log(userEmail)
+      // Sjekk om e-posten matcher
+      if (userEmail !== email) {
+        throw new Error('Brukernavnet stemmer ikke overens med e-posten');
+      }
+
+      // Lagre brukernavnet i local storage
+      localStorage.setItem('username', username);
+    }
+
+    // Sett en flagg som indikerer vellykket innlogging
+    localStorage.setItem('loginSuccess', 'true');
+
+    // Omdiriger brukeren til hjemme-siden
     window.location.href = '/';
 
   } catch (error) {
     console.error('Error:', error.message);
-    displayErrorMessage(error.message || 'An unknown error occurred. Please try again.');
   }
 }
