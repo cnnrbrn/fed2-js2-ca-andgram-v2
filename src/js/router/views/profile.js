@@ -1,12 +1,15 @@
 import { authGuard } from "../../utilities/authGuard";
 import { checkAllStatuses } from "../../ui/global/successPopup";
-import { loadProfileHeader, displayProfileHeader } from "../../api/profile/read";
+import { loadProfileHeader, displayProfileHeader, loadUserProfile } from "../../api/profile/read";
+
+
 
 // Call functions with proper handling for async functions
 window.onload = async function() {
     try {
         checkAllStatuses();
-
+        loadUserProfile()
+        
         const profileData = await loadProfileHeader();
         console.log(profileData);
         
@@ -20,5 +23,6 @@ window.onload = async function() {
     } catch (error) {
         console.error('Error during window load:', error);
     }
+    
 };
 

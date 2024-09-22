@@ -74,7 +74,6 @@ export function displaySearchResults(data) {
 
 
 // functions for profile page
-
 export async function loadProfileHeader() {
     try {
         const params = new URLSearchParams(window.location.search);
@@ -99,7 +98,7 @@ export async function loadProfileHeader() {
         console.log('Profile data fetched successfully:', profileData); // Ensure this logs the correct data
 
         // Adjust return statement based on your API response structure
-return profileData.data || null; // Return the user object directly if it's not an array
+        return profileData.data || null; // Return the user object directly if it's not an array
 
     } catch (error) {
         console.error('Error fetching profile header:', error);
@@ -136,6 +135,49 @@ export function displayProfileHeader(userData) {
     }
 }
 
+export async function loadUserProfile() {
+    // Get username from url
+    const params = new URLSearchParams(window.location.search);
+    const profileUsername = params.get('name');
+
+    // Get username from localStorage
+    const loggedInUsername = localStorage.getItem('username');
+
+    // If on logged in users profile, show additional options
+    if (profileUsername === loggedInUsername) {
+        showExtraUserOptions();
+
+    } else {
+        console.error('Username not in URL');
+        alert('Something went wrong, please try agian');
+    }
+}
+
+// Funksjon for å vise ekstra brukeropplysninger eller handlinger
+function showExtraUserOptions() {
+    // Opprett ekstra innhold som kun vises for den innloggede brukeren
+    const extraOptionsDiv = document.createElement('div');
+    extraOptionsDiv.id = 'extra-user-options';
+    extraOptionsDiv.innerHTML = `
+        <a id="createPostLink" href="/post/create/index.html">Create post</a>
+        <button id="edit-profile-btn">Rediger Profil</button>
+        <button id="logout-btn">Logg ut</button>
+    `;
+
+    // Legg til ekstra alternativer i profildelen
+    const profileContainer = document.getElementById('profile-container');
+    profileContainer.appendChild(extraOptionsDiv);
+
+    // Legg til funksjonalitet for knapper
+    document.getElementById('edit-profile-btn').addEventListener('click', () => {
+        window.location.href = `/profile/edit/?name=${loggedInUsername}`;
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.clear();
+        window.location.href = '/auth/login';
+    });
+}
 
 
 

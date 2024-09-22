@@ -2,6 +2,7 @@ import { authGuard } from "../../utilities/authGuard.js";
 import { updateNav } from "../../ui/global/nav.js";
 import { checkAllStatuses } from "../../ui/global/successPopup.js";
 import { readProfile, displaySearchResults } from "../../api/profile/read.js";
+import { redirectToProfile } from "../../api/profile/myProfileRedirect.js";
 
 // check if user is athenticated
 authGuard();
@@ -11,6 +12,9 @@ updateNav();
 
 // Show popup
 window.onload = checkAllStatuses();
+
+// Legg til event listener for "My Profile"-knappen
+document.getElementById('myProfile').addEventListener('click', redirectToProfile);
 
 // Add event listener to profile search field
 document.getElementById('searchButton').addEventListener('click', async () => {
