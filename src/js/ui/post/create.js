@@ -11,10 +11,13 @@ export async function onCreatePost(event) {
   const alt = form.elements.alt.value; // Capture alt text
 
   try {
-    await createPost({ title, body, tags, media, alt });
+    const newPost = await createPost({ title, body, tags, media, alt });
+    
+    // Log the entire newPost object to see its structure
+    console.log('New post object:', newPost);
+
     localStorage.setItem('newPostSuccess', 'true');
     console.log('Post created successfully');
-    window.location.href = '/profile/';
 
   } catch (error) {
     console.error('Error creating post:', error.message);

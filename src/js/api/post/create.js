@@ -7,23 +7,10 @@ export async function createPost({ title, body, tags = '', media = '', alt = '' 
   // Convert tags to an array of strings
   const tagsArray = tags.split(',').map(tag => tag.trim());
 
-   // Create mediaObject only if media is a valid URL
-   const mediaObject = media ? { 
+  const mediaObject = { 
     url: media, 
     alt: alt || 'Image'
-  } : undefined;
-
-  // Prepare the body for the request
-  const postData = {
-    title,
-    body,
-    tags: tagsArray,
   };
-
-  // Include mediaObject only if it's defined
-  if (mediaObject) {
-    postData.media = mediaObject;
-  }
 
   try {
     // Send post request with post data
@@ -47,7 +34,17 @@ export async function createPost({ title, body, tags = '', media = '', alt = '' 
 
     // Parse and log the successful response
     const data = await response.json();
-    console.log('Post created successfully:', data);
+    console.log('Response from post creation:', data); // Log the whole response
+
+    // Check if the response contains the ID
+    const newPostId = data.id || (data.data && data.data.id); // Adjust this based on your API response
+    if (newPostId) {
+      console.log('Redirecting to post with ID:', newPostId);
+      window.location.href = `/post/index.html?id=${newPostId}`;
+    } else {
+      console.error('Post ID not found in the response:', data);
+    }
+
     return data;
   } catch (error) {
     console.error('Error creating post:', error.message);
