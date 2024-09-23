@@ -175,7 +175,7 @@ function showExtraUserOptions() {
 
     document.getElementById('logout-btn').addEventListener('click', () => {
         localStorage.clear();
-        window.location.href = '/auth/login';
+        window.location.href = '/auth/';
     });
 }
 
