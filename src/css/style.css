@@ -13,8 +13,8 @@
 
   --clr-contrast-400: #0c558d;
 
-  --ff-primary: 'playfair display', serif;
-  --ff-accent: 'open sans', sans-serif;
+  --ff-primary: 'Nunito', sans-serif;
+  --ff-accent: 'Archivo', sans-serif;
 
   --fs-300: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
   --fs-400: clamp(1.2rem, 1.0959rem + 0.5207vw, 1.4994rem);
@@ -26,11 +26,12 @@
 
 body {
   font-family: var(--ff-primary);
-  font-weight: 300;
+  font-weight: 400;
   font-size: var(--fs-300);
   line-height: 1.6;
   overflow-x: hidden;
-  background-color: var(--clr-primary-600);
+  background: linear-gradient(to bottom, var(--clr-primary-600), var(--clr-primary-700));
+  
 }
 
 body,
@@ -41,9 +42,43 @@ p {
   margin: 0;
 }
 
+a.button {
+  padding: 0.2em 1em;
+}
+
+/* ====================
+         components
+         ==================== */
+
+button, .button {
+  background-color: var(--clr-contrast-400);
+  border: none;
+  border-radius: 5px;
+  padding: 0.4em 1em;
+  color: #fff;
+  font-size: 1rem;
+  display: inline-block;
+  margin-bottom: 1em;
+  margin-top: 0.4em;
+}
+
+button:hover, .button:hover {
+  transform: translateY(-0.5rem);
+  transition: transform 250ms;
+  background-color: #044272;
+}
+
+#load-more-button {
+  text-decoration: underline;
+  color: var(--clr-primary-500);
+  margin: 1em;
+  cursor: pointer;
+}
+
 /* ====================
          typography
          ==================== */
+
 
 h1 {
   font-family: var(--ff-accent);
@@ -64,19 +99,19 @@ p {
 h1 {
   margin-top: 2.5rem;
   font-size: var(--fs-800);
-  font-weight: 500;
+  font-weight: 700;
   color: #fff;
 }
 
 h2 {
   font-size: var(--fs-500);
-  font-weight: 500;
+  font-weight: 700;
   color: #fff;
 }
 
 h3 {
   font-size: var(--fs-400);
-  font-weight: 500;
+  font-weight: 700;
   color: #fff;
 }
 
@@ -107,6 +142,13 @@ main {
   background: linear-gradient(var(--clr-primary-500), var(--clr-primary-600));
 }
 
+.profile-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (min-width: 40em) {
 
   section,
@@ -134,10 +176,23 @@ img {
   margin-top: 1em;
 }
 
+.post-image {
+  border-radius: 0.6rem;
+  transition: 250ms ease;
+}
+
+.post-image:hover {
+  border-radius: 5px;
+  filter: brightness(.6);
+}
+
+
 #posts-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1em;
+  margin-inline: auto;
+  width: min(90%, 70.5rem);
 }
 
 /* ====================
@@ -237,8 +292,7 @@ img {
      border: 3px solid white;
    }
    #profile-image {
-     width: 100px;
-     height: 100px;
+     max-width: 150px;
      object-fit: cover;
    }
    

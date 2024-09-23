@@ -159,7 +159,7 @@ function showExtraUserOptions() {
     const extraOptionsDiv = document.createElement('div');
     extraOptionsDiv.id = 'extra-user-options';
     extraOptionsDiv.innerHTML = `
-        <a id="createPostLink" href="/post/create/index.html">Create post</a>
+        <a id="createPostLink" class="button" href="/post/create/index.html">Create post</a>
         <button id="edit-profile-btn">Rediger Profil</button>
         <button id="logout-btn">Logg ut</button>
     `;
