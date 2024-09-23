@@ -24,8 +24,6 @@ export async function deletePostById(postId) {
     });
 
     if (response.ok) {
-      localStorage.setItem('deletePostSuccess', 'true'); 
-      window.location.href = '/profile/'; // Redirect to profile page
     } else {
       const errorData = await response.json();
       console.error('Failed to delete post:', errorData);

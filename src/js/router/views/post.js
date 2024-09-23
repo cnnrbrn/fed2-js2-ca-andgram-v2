@@ -5,7 +5,7 @@ import { checkAllStatuses } from '../../ui/global/successPopup.js';
 
 // Ensure checkAllStatuses is called on window load
 window.onload = function() {
-    checkAllStatuses(); // Ensure this runs after the page has fully loaded
+    checkAllStatuses(); 
     displaySinglePost(); // Load and display the post once the page loads
 };
 
@@ -61,7 +61,10 @@ if (deleteButton) {
             try {
                 await deletePostById(postId); // Ensure deletePostById is async
                 console.log('Post deleted successfully');
-                window.location.href = '/'; // Redirect after deletion (optional)
+                const userName = localStorage.getItem('username')
+                console.log('Username from localStorage:', userName);
+                window.location.href = `/profile/index.html?name=${userName}`; // Redirect to profile page
+                localStorage.setItem('deletePostSuccess', 'true'); 
             } catch (error) {
                 console.error('Error deleting post:', error);
             }
