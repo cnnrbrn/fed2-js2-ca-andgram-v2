@@ -1,5 +1,6 @@
 import { API_SOCIAL_PROFILES } from '../constants.js'; // Adjust based on your project structure
 import { getAuthorizationHeaders } from '../headers.js';
+import { showError} from '../../ui/global/errorMessage.js';
 
 export async function updateProfile(username, { avatar, banner, bio }) {
     const headers = getAuthorizationHeaders();
@@ -27,6 +28,7 @@ export async function updateProfile(username, { avatar, banner, bio }) {
     
     // Check that at least one property is provided
     if (!bio && !avatar && !banner) {
+        showError('At least one property (bio, avatar, banner) must be provided for the update.'); // Notify user
         throw new Error('At least one property (bio, avatar, banner) must be provided for the update.');
     }
 
@@ -41,6 +43,7 @@ export async function updateProfile(username, { avatar, banner, bio }) {
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Failed to update profile:', errorData);
+            showError(`Failed to update profile: ${errorData.message}`);
             throw new Error(`Failed to update profile: ${errorData.message}`);
         }
 
@@ -50,6 +53,6 @@ export async function updateProfile(username, { avatar, banner, bio }) {
 
     } catch (error) {
         console.error('Error updating profile:', error.message);
-        throw error;
+        showError('An unexpected error occurred while updating the profile.');
     }
 }

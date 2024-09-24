@@ -1,5 +1,6 @@
 import { API_SOCIAL_POSTS, API_SOCIAL_PROFILES } from '../../api/constants.js';
 import { getAuthorizationHeaders } from '../../api/headers.js';
+import { showError, logError } from '../../ui/global/errorMessage.js'; // Import error handling functions
 
 // Fetch post data for single post
 export async function readPost(id) {
@@ -12,7 +13,9 @@ export async function readPost(id) {
 
         console.log('API response status:', response.status);
         if (!response.ok) {
-            console.error('Failed to fetch post:', await response.text());
+            const errorText = await response.text();
+            console.error('Failed to fetch post:', errorText);
+            showError('Failed to fetch post. Please try again later.'); // Notify user about the failure
             return null; // Return null if fetching fails
         }
 
@@ -28,7 +31,7 @@ export async function readPost(id) {
             return postData;
         }
 
-        // Hent innleggene til brukeren
+        // Fetch user posts
         console.log('Fetching posts for logged in user:', loggedInUsername);
         const userProfileResponse = await fetch(`${API_SOCIAL_PROFILES}/${loggedInUsername}/posts`, {
             method: 'GET',
@@ -37,14 +40,16 @@ export async function readPost(id) {
 
         console.log('Profile API response status:', userProfileResponse.status);
         if (!userProfileResponse.ok) {
-            console.error('Failed to fetch user profile:', await userProfileResponse.text());
+            const errorText = await userProfileResponse.text();
+            console.error('Failed to fetch user profile:', errorText);
+            showError('Failed to fetch user profile. Please try again later.');
             return null;
         }
 
         const userPostsData = await userProfileResponse.json();
         console.log('User profile posts data:', userPostsData);
 
-        // Sjekk at vi faktisk har innlegg
+        // Check if we have any posts
         const userPosts = userPostsData.data || [];
         console.log('User posts:', userPosts);
 
@@ -63,6 +68,8 @@ export async function readPost(id) {
 
     } catch (error) {
         console.error('Error fetching post:', error);
+        showError('An unexpected error occurred while fetching the post.'); // Notify user about the unexpected error
+        logError(error); // Log the error for debugging
         return null;
     }
 }

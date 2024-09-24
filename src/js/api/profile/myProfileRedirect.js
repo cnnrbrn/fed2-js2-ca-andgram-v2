@@ -1,13 +1,11 @@
-
 export function redirectToProfile() {
-    // Hent brukernavn fra localStorage
+    // Get username from localStorage
     const username = localStorage.getItem('username');
 
-    // Hvis brukernavnet finnes, omdiriger til profilsiden med brukernavnet i URL'en
+    // If username exist, redirect to profile page with username in URL
     if (username) {
         window.location.href = `/profile/index.html?name=${username}`;
     } else {
-        console.error('Brukernavn ikke funnet i localStorage. Vennligst logg inn.');
-        alert('Brukernavn ikke funnet. Du må være innlogget for å se profilen din.');
+        console.error('Username not found in localStorage. Please login.');
     }
 }

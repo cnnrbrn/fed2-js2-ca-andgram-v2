@@ -1,9 +1,17 @@
 import { clearLocalStorage } from '../../utilities/clearLocalStorage';
+import { showError, logError } from '../../ui/global/errorMessage';
 
 export function handleAuthLogout() {
-    clearLocalStorage();
-    localStorage.setItem('logoutSuccess', 'true'); 
+    try {
+        // Clear local storage
+        clearLocalStorage();
+        localStorage.setItem('logoutSuccess', 'true'); 
 
-    // Redirect to the login page
-    window.location.href = '/auth/';
+        // Redirect to the login page
+        window.location.href = '/auth/';
+    } catch (error) {
+        // Handle any unexpected errors during logout
+        showError('An error occurred while logging out. Please try again.'); // Show user-friendly error message
+        logError(error); // Log the error for debugging purposes
+    }
 }

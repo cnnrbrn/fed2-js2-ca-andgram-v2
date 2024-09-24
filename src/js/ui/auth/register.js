@@ -19,8 +19,6 @@ export async function onRegister(event) {
     window.location.href = "/auth/login/";
   } catch (error) {
     console.error('Registration failed', error);
-    // Show error message to the user
-    alert('Registration failed. Please try again.');
   }
 }
 

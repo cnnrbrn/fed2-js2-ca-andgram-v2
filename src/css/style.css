@@ -229,6 +229,16 @@ img {
     z-index: 1000;
 }
 
+#error-popup {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
 
 /* ====================
     confirmation modal
@@ -331,3 +341,7 @@ img {
     color: #fff;
     font-weight: 300;
    }
+
+
+
+   

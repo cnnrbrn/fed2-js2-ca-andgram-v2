@@ -1,7 +1,6 @@
 import { getAuthorizationHeaders } from "../../api/headers";
 import { API_SOCIAL_PROFILES } from "../../api/constants";
-
-// functions for home page
+import { showError, logError } from '../../ui/global/errorMessage'; // Import error handling functions
 
 // Function for getting and reading a profile by username 
 export async function readProfile(query) {
@@ -12,22 +11,25 @@ export async function readProfile(query) {
         });
 
         if (!response.ok) {
-            console.error('Failed to fetch user:', await response.text());
-            return null; // Return null if fetching fails
+            const errorText = await response.text();
+            console.error('Failed to fetch user:', errorText);
+            showError('Failed to fetch user. Please try again later.');
+            return null; 
         }
 
         const responseData = await response.json();
         console.log('Response data received:', responseData);
 
         // Access user data
-        const userData = responseData.data;  // Assuming profile is returned in a data field
+        const userData = responseData.data; 
         console.log('User data:', userData);
 
-        return userData; // Return the user data
+        return userData;
 
     } catch (error) {
         console.error('Error fetching user profile:', error);
-        return null; // Return null in case of error
+        showError('An unexpected error occurred while fetching the user profile.');
+        return null;
     }
 }
 
@@ -48,9 +50,9 @@ export function displaySearchResults(data) {
     // Loop through profiles and display each one
     profiles.forEach(profile => {
         const profileElement = document.createElement('div');
-        profileElement.classList.add('profile'); // Add a class for styling if needed
+        profileElement.classList.add('profile'); // Add a class for styling
 
-        // Create elements for profile name, bio, etc.
+        // Create elements for profile name, bio, and link to full post
         const nameElement = document.createElement('h3');
         nameElement.textContent = `${profile.name}`;
 
@@ -72,8 +74,7 @@ export function displaySearchResults(data) {
     });
 }
 
-
-// functions for profile page
+// Functions for profile page
 export async function loadProfileHeader() {
     try {
         const params = new URLSearchParams(window.location.search);
@@ -81,7 +82,8 @@ export async function loadProfileHeader() {
 
         if (!username) {
             console.log('No username specified in the URL.');
-            return null; // Return null if no username
+            showError('No username specified in the URL.'); 
+            return null;
         }
 
         const response = await fetch(`${API_SOCIAL_PROFILES}/${username}`, {
@@ -90,22 +92,23 @@ export async function loadProfileHeader() {
         });
 
         if (!response.ok) {
-            console.error('Failed to load profile header:', await response.text());
-            return null; // Return null on error
+            const errorText = await response.text();
+            console.error('Failed to load profile header:', errorText);
+            showError('Failed to load profile header. Please try again later.');
+            return null; 
         }
 
         const profileData = await response.json();
-        console.log('Profile data fetched successfully:', profileData); // Ensure this logs the correct data
+        console.log('Profile data fetched successfully:', profileData);
 
-        // Adjust return statement based on your API response structure
-        return profileData.data || null; // Return the user object directly if it's not an array
+        return profileData.data || null; 
 
     } catch (error) {
         console.error('Error fetching profile header:', error);
-        return null; // Return null on error
+        showError('An unexpected error occurred while fetching the profile header.');
+        return null; //
     }
 }
-
 
 // Function to display profile banner and avatar
 export function displayProfileHeader(userData) {
@@ -117,10 +120,13 @@ export function displayProfileHeader(userData) {
     const profilePicElement = document.getElementById('profile-image');
     const profileName = document.getElementById('profile-name');
     const bioElement = document.getElementById('profile-bio');
+
     // Set profile name
     profileName.textContent = userName;
+
     // Set bio
     bioElement.textContent = bio;
+
     // Set banner image if available
     if (bannerUrl) {
         bannerElement.src = bannerUrl;
@@ -129,6 +135,7 @@ export function displayProfileHeader(userData) {
         // Fallback if no banner
         bannerElement.style.display = 'none';
     }
+
     // Set profile picture if available
     if (profilePicUrl) {
         profilePicElement.src = profilePicUrl;
@@ -137,43 +144,41 @@ export function displayProfileHeader(userData) {
         // Fallback if no profile picture
         profilePicElement.style.display = 'none';
     }
-    
 }
 
 export async function loadUserProfile() {
-    // Get username from url
+    // Get username from URL
     const params = new URLSearchParams(window.location.search);
     const profileUsername = params.get('name');
 
     // Get username from localStorage
     const loggedInUsername = localStorage.getItem('username');
 
-    // If on logged in users profile, show additional options
+    // If on logged-in user's profile, show additional options
     if (profileUsername === loggedInUsername) {
         showExtraUserOptions();
-
     } else {
         console.error('Username not in URL');
-        alert('Something went wrong, please try agian');
+        showError('Something went wrong, please try again.');
     }
 }
 
-// Funksjon for å vise ekstra brukeropplysninger eller handlinger
+// Function for showing extra user options
 function showExtraUserOptions() {
-    // Opprett ekstra innhold som kun vises for den innloggede brukeren
+    // Create extra content that is only displayed for the logged-in user
     const extraOptionsDiv = document.createElement('div');
     extraOptionsDiv.id = 'extra-user-options';
     extraOptionsDiv.innerHTML = `
         <a id="createPostLink" class="button" href="/post/create/index.html">Create post</a>
-        <button id="edit-profile-btn">Rediger Profil</button>
-        <button id="logout-btn" class="logout-button">Logg ut</button>
+        <button id="edit-profile-btn">Edit Profile</button>
+        <button id="logout-btn" class="logout-button">Log Out</button>
     `;
 
-    // Legg til ekstra alternativer i profildelen
+    // Append extra options to the profile section
     const profileContainer = document.getElementById('profile-container');
     profileContainer.appendChild(extraOptionsDiv);
 
-    // Legg til funksjonalitet for knapper
+    // Add functionality for buttons
     document.getElementById('edit-profile-btn').addEventListener('click', () => {
         window.location.href = `/profile/edit/?name=${loggedInUsername}`;
     });
@@ -183,8 +188,3 @@ function showExtraUserOptions() {
         window.location.href = '/auth/';
     });
 }
-
-
-
-
-

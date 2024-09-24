@@ -1,5 +1,6 @@
 import { API_SOCIAL_POSTS } from '../constants.js';
 import { getAuthorizationHeaders } from '../headers.js';
+import { showError, logError } from '../../ui/global/errorMessage.js';
 
 export async function createPost({ title, body, tags = '', media = '', alt = '' }) {
   const headers = getAuthorizationHeaders();
@@ -28,16 +29,15 @@ export async function createPost({ title, body, tags = '', media = '', alt = '' 
     // Check if the response is okay
     if (!response.ok) {
       const errorData = await response.json(); 
-      console.error('Failed to create post:', errorData);
-      throw new Error(`Failed to create post: ${errorData.message}`);
+      throw new Error(errorData.message || 'Failed to create post');
     }
 
     // Parse and log the successful response
     const data = await response.json();
-    console.log('Response from post creation:', data); // Log the whole response
+    console.log('Response from post creation:', data);
 
-    // Check if the response contains the ID
-    const newPostId = data.id || (data.data && data.data.id); // Adjust this based on your API response
+    // Check if the response contains the post ID
+    const newPostId = data.id || (data.data && data.data.id); 
     if (newPostId) {
       console.log('Redirecting to post with ID:', newPostId);
       window.location.href = `/post/index.html?id=${newPostId}`;
@@ -46,8 +46,12 @@ export async function createPost({ title, body, tags = '', media = '', alt = '' 
     }
 
     return data;
+
   } catch (error) {
-    console.error('Error creating post:', error.message);
-    throw error;
+    // Display error message to the user
+    showError(`Error creating post: ${error.message}`);
+    
+    // Log error for debugging
+    logError(error);
   }
 }

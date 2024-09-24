@@ -1,9 +1,10 @@
 import { API_AUTH_LOGIN, API_AUTH_KEY } from '../constants.js';
 import { getAuthorizationHeaders } from '../headers.js';
+import { showError, logError } from '../../ui/global/errorMessage.js';
 
 export async function handleLogin(email, password) {
   try {
-    // Gjør en POST-forespørsel til innloggingsendepunktet
+    // Make a POST request to the login endpoint
     const response = await fetch(API_AUTH_LOGIN, {
       method: 'POST',
       headers: {
@@ -14,14 +15,15 @@ export async function handleLogin(email, password) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Failed to login');
+      showError(errorData.message || 'Failed to login'); // Use showError for login errors
+      return; // Exit if login fails
     }
 
-    // Hent access token fra svaret
+    // Get access token from the response
     const { data } = await response.json();
     const accessToken = data.accessToken;
 
-    // Lag API-nøkkel ved hjelp av access token
+    // Create API key using access token
     const apiKeyResponse = await fetch(API_AUTH_KEY, {
       method: 'POST',
       headers: {
@@ -33,50 +35,54 @@ export async function handleLogin(email, password) {
 
     if (!apiKeyResponse.ok) {
       const errorData = await apiKeyResponse.json();
-      throw new Error(errorData.message || 'Failed to create API key');
+      showError(errorData.message || 'Failed to create API key'); // Use showError for API key creation errors
+      return; // Exit if API key creation fails
     }
 
-    // Hent API-nøkkelen fra svaret
+    // Get the API key from the response
     const apiKeyData = await apiKeyResponse.json();
     const apiKey = apiKeyData.data.key;
 
-    // Lagre access token og API-nøkkel i local storage
+    // Store access token and API key in local storage
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('apiKey', apiKey);
 
-    // Be om brukernavn fra brukeren
-    const username = prompt('Vennligst bekreft brukernavnet ditt:');
+    // Prompt user for their username
+    const username = prompt('Please confirm your username:');
     if (username) {
-      // Valider brukernavnet mot e-posten
-      const headers = getAuthorizationHeaders(); // Flytter headerdeklasjonen utenfor fetch
+      // Validate the username against the email
+      const headers = getAuthorizationHeaders(); // Move header declaration outside fetch
       const profileResponse = await fetch(`https://v2.api.noroff.dev/social/profiles/${username}`, {
         method: 'GET',
-        headers, // Bruker headers objektet her
+        headers, // Use headers object here
       });
 
       if (!profileResponse.ok) {
-        throw new Error('Brukernavn eksisterer ikke eller uautorisert tilgang');
+        showError('Username does not exist or unauthorized access'); // Use showError for profile fetch errors
+        return; // Exit if profile fetch fails
       }
 
       const profileData = await profileResponse.json();
       const userEmail = profileData.data.email; // Assuming email is part of the returned data
-      console.log(userEmail)
-      // Sjekk om e-posten matcher
+
+      // Check if the email matches
       if (userEmail !== email) {
-        throw new Error('Brukernavnet stemmer ikke overens med e-posten');
+        showError('Username does not match the email'); // Use showError for email mismatch
+        return; // Exit if email doesn't match
       }
 
-      // Lagre brukernavnet i local storage
+      // Store the username in local storage
       localStorage.setItem('username', username);
     }
 
-    // Sett en flagg som indikerer vellykket innlogging
+    // Set a flag indicating successful login
     localStorage.setItem('loginSuccess', 'true');
 
-    // Omdiriger brukeren til hjemme-siden
+    // Redirect user to the home page
     window.location.href = '/';
 
   } catch (error) {
-    console.error('Error:', error.message);
+    showError('An unexpected error occurred. Please try again.'); // Use showError for unexpected errors
+    logError(error); // Log unexpected errors for debugging purposes
   }
 }
