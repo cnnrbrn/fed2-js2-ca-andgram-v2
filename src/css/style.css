@@ -31,6 +31,8 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   background: linear-gradient(to bottom, var(--clr-primary-600), var(--clr-primary-700));
+  background-repeat: no-repeat;
+  height: 100vh;
   
 }
 
@@ -40,6 +42,10 @@ h2,
 h3,
 p {
   margin: 0;
+}
+
+a {
+  color: #fff;
 }
 
 a.button {
@@ -73,6 +79,18 @@ button:hover, .button:hover {
   color: var(--clr-primary-500);
   margin: 1em;
   cursor: pointer;
+}
+
+.logout-button {
+  background-color: var(--clr-primary-600);
+}
+
+.logout-button:hover {
+  background-color: var(--clr-primary-700);
+}
+
+#profile-container {
+  margin-bottom: 1em;
 }
 
 /* ====================
@@ -138,9 +156,7 @@ main {
   width: min(90%, 70.5rem);
 }
 
-.bg-grey {
-  background: linear-gradient(var(--clr-primary-500), var(--clr-primary-600));
-}
+
 
 .profile-content-container {
   display: flex;
@@ -265,12 +281,9 @@ img {
 }
 
 /* ====================
-    Profile header
+    Profile page
    ==================== */
-   
-   #profile-name {
- 
-   }   
+    
    #profile-header {
      text-align: center;
      margin-bottom: 20px;
@@ -295,4 +308,26 @@ img {
      max-width: 150px;
      object-fit: cover;
    }
+
+   #profile-bio {
+    color: var(--clr-primary-500);
+    font-weight: 300;
+   }
+
+   #profile-name {
+    margin-bottom: 0.4em;
+   }
+
+   .bg-wrapper {
+    background: linear-gradient(to bottom, var(--clr-primary-600), var(--clr-primary-700));
+    background-repeat: no-repeat;
+  }
    
+/* ====================
+    Forms
+   ==================== */
+
+   #loginForm {
+    color: #fff;
+    font-weight: 300;
+   }

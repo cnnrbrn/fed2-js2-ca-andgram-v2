@@ -112,11 +112,15 @@ export function displayProfileHeader(userData) {
     const bannerUrl = userData.banner.url;  // Access the banner URL
     const profilePicUrl = userData.avatar.url;  // Access the avatar (profile picture) URL
     const userName = userData.name;
+    const bio = userData.bio;
     const bannerElement = document.getElementById('banner-image');
     const profilePicElement = document.getElementById('profile-image');
     const profileName = document.getElementById('profile-name');
+    const bioElement = document.getElementById('profile-bio');
     // Set profile name
     profileName.textContent = userName;
+    // Set bio
+    bioElement.textContent = bio;
     // Set banner image if available
     if (bannerUrl) {
         bannerElement.src = bannerUrl;
@@ -133,6 +137,7 @@ export function displayProfileHeader(userData) {
         // Fallback if no profile picture
         profilePicElement.style.display = 'none';
     }
+    
 }
 
 export async function loadUserProfile() {
@@ -161,7 +166,7 @@ function showExtraUserOptions() {
     extraOptionsDiv.innerHTML = `
         <a id="createPostLink" class="button" href="/post/create/index.html">Create post</a>
         <button id="edit-profile-btn">Rediger Profil</button>
-        <button id="logout-btn">Logg ut</button>
+        <button id="logout-btn" class="logout-button">Logg ut</button>
     `;
 
     // Legg til ekstra alternativer i profildelen
