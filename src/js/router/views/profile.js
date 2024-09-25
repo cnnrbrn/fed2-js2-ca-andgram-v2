@@ -1,8 +1,6 @@
 import { authGuard } from "../../utilities/authGuard";
-import { checkAllStatuses } from "../../ui/global/successPopup";
 import { loadProfileHeader, displayProfileHeader, loadUserProfile } from "../../api/profile/read";
 import { onUpdateProfile } from "../../ui/profile/update";
-
 
 
 // Call functions with proper handling for async functions

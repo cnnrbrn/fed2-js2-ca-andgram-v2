@@ -33,8 +33,12 @@ export async function onUpdateProfile() {
         // Call the updateProfile function
         const updatedProfile = await updateProfile(username, profileData);
         console.log('Profile updated:', updatedProfile);
-        localStorage.setItem('updateSuccess', 'true');
-        checkAllStatuses();
+
+         // Set updateSuccess in local storage
+         localStorage.setItem('updateSuccess', 'true');
+
+         // Show succsess popup
+         checkAllStatuses()
   
         // Optionally, close the modal after success
         profileEditModal.style.display = 'none';
