@@ -5,14 +5,15 @@ export function onLogin(event) {
   event.preventDefault();
   
   const email = document.getElementById('email').value.trim();
+  const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value.trim();
 
-  if (!email || !password) {
-    displayErrorMessage('Email and password are required.');
+  if (!email || !password || !username) {
+    displayErrorMessage('Email, username and password are required.');
     return;
   }
 
-  handleLogin(email, password)
+  handleLogin(email, password, username)
     .catch(error => {
       console.error('Error during login submission:', error.message);
       displayErrorMessage(error.message || 'An unknown error occurred. Please try again.');
