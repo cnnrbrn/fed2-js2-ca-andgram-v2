@@ -178,11 +178,6 @@ function showExtraUserOptions() {
     const profileContainer = document.getElementById('profile-container');
     profileContainer.appendChild(extraOptionsDiv);
 
-    // Add functionality for buttons
-    document.getElementById('edit-profile-btn').addEventListener('click', () => {
-        window.location.href = `/profile/edit/?name=${loggedInUsername}`;
-    });
-
     document.getElementById('logout-btn').addEventListener('click', () => {
         localStorage.clear();
         window.location.href = '/auth/';

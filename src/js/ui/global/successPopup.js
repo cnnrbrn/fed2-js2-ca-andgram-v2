@@ -13,7 +13,7 @@ function showPopup(message) {
   function checkUpdateStatus() {
     if (localStorage.getItem('updateSuccess') === 'true') {
       localStorage.removeItem('updateSuccess');
-      showPopup('Post updated successfully!');
+      showPopup('Updated successfully!');
     }
   }
   // Function to check login status
@@ -60,4 +60,5 @@ function showPopup(message) {
     checkNewPostStatus();
     checkDeleteStatus();
     checkRegisterStatus();
+    console.log('Really cheking status here');
   }
