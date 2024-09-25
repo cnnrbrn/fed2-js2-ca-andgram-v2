@@ -60,5 +60,4 @@ function showPopup(message) {
     checkNewPostStatus();
     checkDeleteStatus();
     checkRegisterStatus();
-    console.log('Really cheking status here');
   }

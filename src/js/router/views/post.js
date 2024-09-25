@@ -61,13 +61,22 @@ if (deleteButton) {
             try {
                 await deletePostById(postId); // Ensure deletePostById is async
                 console.log('Post deleted successfully');
-                const userName = localStorage.getItem('username')
-                console.log('Username from localStorage:', userName);
-                window.location.href = `/profile/index.html?name=${userName}`; // Redirect to profile page
+
+                // Set success message and show popup
                 localStorage.setItem('deletePostSuccess', 'true'); 
+                checkAllStatuses(); // Show the success popup
+
+                // Delay the redirection to allow the popup to be seen
+                const userName = localStorage.getItem('username');
+                setTimeout(() => {
+                    console.log('Redirecting to profile page');
+                    window.location.href = `/profile/index.html?name=${userName}`; // Redirect to profile page
+                }, 3000); // Wait for 3 seconds before redirecting
+
             } catch (error) {
                 console.error('Error deleting post:', error);
             }
         }
     });
 }
+
