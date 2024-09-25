@@ -1,5 +1,5 @@
 
-import { handleAuthLogout } from '../auth/logout';
+import { handleAuthLogout } from '../../api/auth/logout';
 
 export function updateNav() {
     
