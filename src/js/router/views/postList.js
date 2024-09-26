@@ -1,7 +1,12 @@
 import { getAuthorizationHeaders } from "../../api/headers";
+import { showError } from "../../ui/global/errorMessage";
+
 // Get the profile name from the URL
 const urlParams = new URLSearchParams(window.location.search);
 const profileName = urlParams.get('name'); // Extract the 'name' from the URL
+
+let displayedPostsCount = 12; // number of posts to display
+let allPosts = []; // To store all posts for potential loading later
 
 // Function to fetch and display profile posts based on the name
 async function fetchProfilePosts(profileName) {
@@ -13,6 +18,7 @@ async function fetchProfilePosts(profileName) {
 
         if (!response.ok) {
             console.error('Failed to fetch profile posts:', await response.text());
+            showError('Failed to load profile posts. Please try again later.');
             return;
         }
 
@@ -24,60 +30,51 @@ async function fetchProfilePosts(profileName) {
 
     } catch (error) {
         console.error('Error fetching profile posts:', error);
+        showError('An error occurred while fetching posts.');
     }
 }
 
-
-let displayedPostsCount = 12; // number of posts to display
-let allPosts = []; // To store all posts for potential loading later
-
 export function displayPosts(postsData) {
-    // Log postsData to ensure correct structure
     console.log('Posts data:', postsData);
-
-    // Extract posts array from postsData object
     const posts = Array.isArray(postsData.data) ? postsData.data : [];
 
-    // Check if posts array is empty
     if (posts.length === 0) {
         console.log('No posts available for this profile.');
+        showError('No posts available.');
         return;
     }
 
-    // Store the posts globally for pagination/load-more functionality
     allPosts = posts;
 
-    // Clear the container where posts are displayed
     const postsContainer = document.getElementById('posts-container');
-    postsContainer.innerHTML = ''; // Clear any existing posts
+    postsContainer.innerHTML = ''; 
 
-    // Display up to the initial displayedPostsCount number of posts (12 latest posts)
+    const fragment = document.createDocumentFragment();
     const postsToShow = allPosts.slice(0, displayedPostsCount);
+
     postsToShow.forEach(post => {
-        const postId = post.id;  // Get the post ID
-        const imageUrl = post.media?.url; // Safely access media URL
-        const altText = post.media?.alt || 'Post image'; // Default alt text
+        const postId = post.id;
+        const imageUrl = post.media?.url;
+        const altText = post.media?.alt || 'Post image';
 
         if (imageUrl) {
-            // Create a link element (<a>) that wraps around the image
             const linkElement = document.createElement('a');
-            linkElement.href = `/post/index.html?id=${postId}`;  // Set link with post ID parameter
+            linkElement.href = `/post/index.html?id=${postId}`;
 
             const imgElement = document.createElement('img');
             imgElement.src = imageUrl;
             imgElement.alt = altText;
 
             const imgPostContainer = document.createElement('div');
-            imgPostContainer.classList.add('img-post-container')
+            imgPostContainer.classList.add('img-post-container');
             imgPostContainer.appendChild(imgElement);
 
-            // Append the image inside the link element
             linkElement.appendChild(imgPostContainer);
-
-            // Append the link (which wraps the image) to the posts container
-            postsContainer.appendChild(linkElement);
+            fragment.appendChild(linkElement);
         }
     });
+
+    postsContainer.appendChild(fragment);
 
     if (allPosts.length > displayedPostsCount) {
         showLoadMoreButton();
@@ -86,34 +83,45 @@ export function displayPosts(postsData) {
 
 function showLoadMoreButton() {
     const loadMoreButton = document.getElementById('load-more-button');
-    loadMoreButton.style.display = 'block'; // Make the button visible
-
-    loadMoreButton.onclick = loadMorePosts; // Assign the click handler
+    if (loadMoreButton) {
+        loadMoreButton.style.display = 'block'; 
+        loadMoreButton.onclick = loadMorePosts;
+    }
 }
 
 function loadMorePosts() {
-    displayedPostsCount = allPosts.length; // Load all remaining posts
     const postsContainer = document.getElementById('posts-container');
+    const postsToShow = allPosts.slice(displayedPostsCount);
+    const fragment = document.createDocumentFragment();
 
-    // Clear existing posts and display all
-    postsContainer.innerHTML = ''; 
-    allPosts.forEach(post => {
+    postsToShow.forEach(post => {
+        const postId = post.id;
         const imageUrl = post.media?.url;
         const altText = post.media?.alt || 'Post image';
 
         if (imageUrl) {
+            const linkElement = document.createElement('a');
+            linkElement.href = `/post/index.html?id=${postId}`;
+
             const imgElement = document.createElement('img');
             imgElement.src = imageUrl;
             imgElement.alt = altText;
-            imgElement.className = 'post-image';
 
-            postsContainer.appendChild(imgElement);
+            const imgPostContainer = document.createElement('div');
+            imgPostContainer.classList.add('img-post-container');
+            imgPostContainer.appendChild(imgElement);
+
+            linkElement.appendChild(imgPostContainer);
+            fragment.appendChild(linkElement);
         }
     });
 
-    // Hide the load more button after all posts are loaded
+    postsContainer.appendChild(fragment);
+    displayedPostsCount = allPosts.length;
     const loadMoreButton = document.getElementById('load-more-button');
-    loadMoreButton.style.display = 'none';
+    if (loadMoreButton) {
+        loadMoreButton.style.display = 'none';
+    }
 }
 
 // Call the function to fetch posts for the given profile name
