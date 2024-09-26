@@ -24,10 +24,7 @@ window.onload = async function () {
         // Call the onUpdateProfile function and pass the event if needed
         if (editProfileButton) {
             editProfileButton.addEventListener('click', onUpdateProfile);
-        } else {
-            console.error('Edit profile button not found');
         }
-
 
     } catch (error) {
         console.error('Error during window load:', error);

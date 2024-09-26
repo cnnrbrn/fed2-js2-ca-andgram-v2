@@ -57,9 +57,11 @@ export function displaySearchResults(data) {
         nameElement.textContent = `${profile.name}`;
 
         const bioElement = document.createElement('p');
+        if(bioElement) {
         bioElement.textContent = `${profile.bio}`;
+        }
 
-        // Create a link to the profile page (you'll pass the profile name to build the URL)
+        // Create a link to the profile page
         const profileLink = document.createElement('a');
         profileLink.href = `/profile/index.html?name=${profile.name}`;
         profileLink.textContent = 'View Profile';
@@ -157,10 +159,8 @@ export async function loadUserProfile() {
     // If on logged-in user's profile, show additional options
     if (profileUsername === loggedInUsername) {
         showExtraUserOptions();
-    } else {
-        console.error('Username not in URL');
-        showError('Something went wrong, please try again.');
-    }
+    } 
+    
 }
 
 // Function for showing extra user options
