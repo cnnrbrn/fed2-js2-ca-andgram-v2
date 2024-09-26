@@ -15,7 +15,7 @@ export async function handleLogin(email, password, username) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      showError(errorData.message || 'Failed to login'); // Use showError for login errors
+      showError(errorData.message || 'Failed to login'); // Show error to user
       return; // Exit if login fails
     }
 
@@ -35,7 +35,7 @@ export async function handleLogin(email, password, username) {
 
     if (!apiKeyResponse.ok) {
       const errorData = await apiKeyResponse.json();
-      showError(errorData.message || 'Failed to create API key'); // Use showError for API key creation errors
+      showError(errorData.message || 'Failed to create API key'); // Show error to user
       return; // Exit if API key creation fails
     }
 
@@ -43,25 +43,36 @@ export async function handleLogin(email, password, username) {
     const apiKeyData = await apiKeyResponse.json();
     const apiKey = apiKeyData.data.key;
 
+    // Store apiKey, accessToken and email in localStorage
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('apiKey', apiKey);
+    localStorage.setItem('email', email);
 
-    // Validate the username against the email
-    const headers = getAuthorizationHeaders(); // Move header declaration outside fetch
+
+    // Verify that the username exists and that the associated email matches the login email
+    const headers = getAuthorizationHeaders();
     const profileResponse = await fetch(`https://v2.api.noroff.dev/social/profiles/${username}`, {
       method: 'GET',
-      headers, // Use headers object here
+      headers,
     });
 
     if (!profileResponse.ok) {
-      showError('Username does not exist or unauthorized access'); // Use showError for profile fetch errors
+      showError('Username does not exist or unauthorized access'); // Show error to user
       return; // Exit if profile fetch fails
+    }  
+    // Assign profile data to ProfileData variable
+    const profileData = await profileResponse.json();
+    // Get email from fetched user
+    const userEmail = profileData.data.email; 
+    // Get email from logged in user
+    const loggedInEmail = localStorage.getItem('email');
+
+    // Check if userEmail matches loggedInEmail
+    if (userEmail !== loggedInEmail) {
+      throw new Error('Brukernavnet stemmer ikke overens med e-posten');
     }
 
-    const profileData = await profileResponse.json();
-    console.log(profileData)
-
-    // Store the username, access token, and API key in local storage
+    // Store the username in local storage for future use
     localStorage.setItem('username', username);
 
     // Set a flag indicating successful login
@@ -71,7 +82,6 @@ export async function handleLogin(email, password, username) {
     window.location.href = '/';
 
   } catch (error) {
-    showError('An unexpected error occurred. Please try again.'); // Use showError for unexpected errors
-    logError(error); // Log unexpected errors for debugging purposes
+    showError('An unexpected error occurred. Please try again.'); // Show error to user
   }
 }
