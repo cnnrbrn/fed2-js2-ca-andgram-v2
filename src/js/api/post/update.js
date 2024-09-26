@@ -37,7 +37,6 @@ export async function updatePost(postId, postData) {
         // Handle unexpected errors
         console.error('Error updating post:', error);
         showError('An unexpected error occurred while updating the post.'); // Notify user about the unexpected error
-        logError(error); // Log the error for debugging
         return null;
     }
 }

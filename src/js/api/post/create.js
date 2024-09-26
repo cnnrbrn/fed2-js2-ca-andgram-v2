@@ -50,8 +50,5 @@ export async function createPost({ title, body, tags = '', media = '', alt = '' 
   } catch (error) {
     // Display error message to the user
     showError(`Error creating post: ${error.message}`);
-    
-    // Log error for debugging
-    logError(error);
   }
 }

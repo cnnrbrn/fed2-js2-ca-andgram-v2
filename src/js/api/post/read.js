@@ -69,7 +69,6 @@ export async function readPost(id) {
     } catch (error) {
         console.error('Error fetching post:', error);
         showError('An unexpected error occurred while fetching the post.'); // Notify user about the unexpected error
-        logError(error); // Log the error for debugging
         return null;
     }
 }

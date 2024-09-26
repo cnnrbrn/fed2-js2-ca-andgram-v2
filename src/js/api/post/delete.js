@@ -33,8 +33,5 @@ export async function deletePostById(postId) {
   } catch (error) {
     // Display error message to the user
     showError(`Error deleting post: ${error.message}`);
-    
-    // Log error for debugging
-    logError(error);
   }
 }

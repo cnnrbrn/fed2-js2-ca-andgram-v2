@@ -27,8 +27,5 @@ export async function register({ name, email, password }) {
   } catch (error) {
     // Display error to the user
     showError(error.message);
-    
-    // Log error to the console for debugging
-    logError(error);
   }
 }

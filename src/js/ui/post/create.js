@@ -30,7 +30,6 @@ export async function onCreatePost(event) {
   } catch (error) {
     console.error('Error creating post:', error.message);
     showError(error.message || 'An error occurred while creating the post. Please try again.'); // Show user-friendly error message
-    logError(error);
   }
 }
 

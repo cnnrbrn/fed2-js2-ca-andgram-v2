@@ -12,6 +12,5 @@ export function handleAuthLogout() {
     } catch (error) {
         // Handle any unexpected errors during logout
         showError('An error occurred while logging out. Please try again.'); // Show user-friendly error message
-        logError(error); // Log the error for debugging purposes
     }
 }
