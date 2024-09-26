@@ -1,5 +1,5 @@
 import { createPost } from "../../api/post/create";
-import { showError, logError } from '../../ui/global/errorMessage.js';
+import { showError } from '../../ui/global/errorMessage.js';
 
 export async function onCreatePost(event) {
   event.preventDefault();

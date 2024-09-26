@@ -1,6 +1,6 @@
 import { API_SOCIAL_POSTS } from '../constants.js';
 import { getAuthorizationHeaders } from '../headers.js';
-import { showError, logError } from '../../ui/global/errorMessage.js'
+import { showError } from '../../ui/global/errorMessage.js'
 
 // Function for updating post with new data
 export async function updatePost(postId, postData) {

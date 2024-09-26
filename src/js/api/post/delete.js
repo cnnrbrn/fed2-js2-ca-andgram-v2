@@ -1,8 +1,7 @@
 import { API_SOCIAL_POSTS } from '../../api/constants.js';
 import { getAuthorizationHeaders } from '../../api/headers.js';
 import { showConfirm } from '../../utilities/confirmationModal.js';
-import { showError, logError } from '../../ui/global/errorMessage.js';
-import { checkAllStatuses } from '../../ui/global/successPopup.js';
+import { showError } from '../../ui/global/errorMessage.js';
 
 // Function to delete a post by ID
 export async function deletePostById(postId) {

@@ -1,6 +1,6 @@
 import { API_AUTH_LOGIN, API_AUTH_KEY } from '../constants.js';
 import { getAuthorizationHeaders } from '../headers.js';
-import { showError, logError } from '../../ui/global/errorMessage.js';
+import { showError } from '../../ui/global/errorMessage.js';
 
 export async function handleLogin(email, password, username) {
   try {

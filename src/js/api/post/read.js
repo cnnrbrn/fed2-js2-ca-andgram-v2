@@ -1,6 +1,6 @@
 import { API_SOCIAL_POSTS, API_SOCIAL_PROFILES } from '../../api/constants.js';
 import { getAuthorizationHeaders } from '../../api/headers.js';
-import { showError, logError } from '../../ui/global/errorMessage.js'; // Import error handling functions
+import { showError } from '../../ui/global/errorMessage.js'; // Import error handling functions
 
 // Fetch post data for single post
 export async function readPost(id) {

@@ -1,5 +1,5 @@
 import { API_AUTH_REGISTER } from '../constants.js';
-import { showError, logError } from '../../ui/global/errorMessage.js'; // Import error handling functions
+import { showError } from '../../ui/global/errorMessage.js'; // Import error handling functions
 
 export async function register({ name, email, password }) {
   try {

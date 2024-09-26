@@ -1,6 +1,6 @@
 import { getAuthorizationHeaders } from "../../api/headers";
 import { API_SOCIAL_PROFILES } from "../../api/constants";
-import { showError, logError } from '../../ui/global/errorMessage'; // Import error handling functions
+import { showError } from '../../ui/global/errorMessage'; // Import error handling functions
 
 // Function for getting and reading a profile by username 
 export async function readProfile(query) {

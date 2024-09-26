@@ -1,6 +1,6 @@
 import { API_SOCIAL_POSTS } from '../constants.js';
 import { getAuthorizationHeaders } from '../headers.js';
-import { showError, logError } from '../../ui/global/errorMessage.js';
+import { showError } from '../../ui/global/errorMessage.js';
 
 export async function createPost({ title, body, tags = '', media = '', alt = '' }) {
   const headers = getAuthorizationHeaders();

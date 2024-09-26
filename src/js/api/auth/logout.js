@@ -1,5 +1,5 @@
 import { clearLocalStorage } from '../../utilities/clearLocalStorage';
-import { showError, logError } from '../../ui/global/errorMessage';
+import { showError } from '../../ui/global/errorMessage';
 
 export function handleAuthLogout() {
     try {
