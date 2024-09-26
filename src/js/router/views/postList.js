@@ -66,10 +66,13 @@ export function displayPosts(postsData) {
             const imgElement = document.createElement('img');
             imgElement.src = imageUrl;
             imgElement.alt = altText;
-            imgElement.className = 'post-image'; // Add CSS class for styling
+
+            const imgPostContainer = document.createElement('div');
+            imgPostContainer.classList.add('img-post-container')
+            imgPostContainer.appendChild(imgElement);
 
             // Append the image inside the link element
-            linkElement.appendChild(imgElement);
+            linkElement.appendChild(imgPostContainer);
 
             // Append the link (which wraps the image) to the posts container
             postsContainer.appendChild(linkElement);
