@@ -30,8 +30,3 @@ export function showError(errorMessage) {
       errorContainer.remove();
   }, 5000);
 }
-
-// Function to log the error
-export function logError(error) {
-  console.error('Logged Error:', error);
-}
