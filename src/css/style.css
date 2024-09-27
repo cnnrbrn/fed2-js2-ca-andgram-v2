@@ -31,7 +31,7 @@ body {
   background: var(--clr-primary-600);
   background-repeat: no-repeat;
   height: 100vh;
-  
+
 }
 
 body,
@@ -54,7 +54,8 @@ a.button {
          components
          ==================== */
 
-button, .button {
+button,
+.button {
   background-color: var(--clr-contrast-400);
   border: none;
   border-radius: 5px;
@@ -66,9 +67,9 @@ button, .button {
   margin-top: 0.4em;
 }
 
-button:hover, .button:hover {
-  transform: translateY(-0.5rem);
-  transition: transform 250ms;
+button:hover,
+.button:hover {
+  transition: transform 250ms ease;
   background-color: #044272;
 }
 
@@ -79,12 +80,13 @@ button:hover, .button:hover {
   cursor: pointer;
 }
 
-.logout-button {
-  background-color: var(--clr-primary-600);
+#logout-btn {
+  background-color: #c2c2c2;
+  color: #000;
 }
 
-.logout-button:hover {
-  background-color: var(--clr-primary-700);
+#logout-btn:hover {
+  background-color: #ffffff;
 }
 
 #profile-container {
@@ -193,7 +195,8 @@ img {
 .img-post-container {
   position: relative;
   border-radius: 0.6rem;
-  padding-top: 100%; /* This ensures a square aspect ratio */
+  padding-top: 100%;
+  /* This ensures a square aspect ratio */
   overflow: hidden;
   transition: 250ms ease;
 }
@@ -210,15 +213,17 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
 }
 
 #posts-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  grid-template-columns: repeat(3, 1fr);
+  /* 3 columns */
   gap: 1em;
   margin-inline: auto;
-  width: min(90%, 70.5rem); /* Responsive width */
+  width: min(90%, 70.5rem);
+  /* Responsive width */
   margin-bottom: 4rem;
 }
 
@@ -261,7 +266,7 @@ img {
 
 #results h3 {
   color: var(--clr-primary-700);
-  margin-bottom:0;
+  margin-bottom: 0;
   font-size: var(--fs-300);
 }
 
@@ -276,18 +281,18 @@ img {
     Popups
    ==================== */
 
-   #successPopup {
-    display: none;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+#successPopup {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 #error-popup {
@@ -295,8 +300,13 @@ img {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* ====================
@@ -304,13 +314,15 @@ img {
    ==================== */
 
 .delete-modal {
-  display: none; /* Hidden by default */
+  display: none;
+  /* Hidden by default */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
   z-index: 1000;
 }
 
@@ -352,48 +364,51 @@ img {
 /* ====================
     Profile page
    ==================== */
-    
-   #profile-header {
-     text-align: center;
-     margin-bottom: 20px;
-   }
-   #banner-container {
-     width: 100%;
-   }
-   #banner-image {
-     width: 100%;
-     height: auto;
-     max-height: 300px;
-     object-fit: cover;
-   }
-   #profile-pic-container {
-    width: 150px; 
-    height: 150px; 
-    margin-top: -50px;
-    display: inline-block;
-    border-radius: 50%;
-    overflow: hidden; 
-    border: 3px solid white; 
+
+#profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#banner-container {
+  width: 100%;
+}
+
+#banner-image {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+#profile-pic-container {
+  width: 150px;
+  height: 150px;
+  margin-top: -50px;
+  display: inline-block;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
 }
 
 #profile-image {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    background-color: #f0f0f0; 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #f0f0f0;
 }
 
 
-   #profile-bio {
-    color: var(--clr-primary-500);
-    font-weight: 300;
-   }
+#profile-bio {
+  color: var(--clr-primary-500);
+  font-weight: 300;
+}
 
-   #profile-name {
-    margin-bottom: 0.4em;
-   }
+#profile-name {
+  margin-bottom: 0.4em;
+}
 
-  /* ====================
+/* ====================
     Edit profile modal
    ==================== */
 
@@ -421,7 +436,8 @@ img {
   font-weight: bold;
 }
 
-.modal input, textarea {
+.modal input,
+textarea {
   width: 100%;
   margin-bottom: 10px;
   padding: 5px;
@@ -447,11 +463,49 @@ img {
     Forms
    ==================== */
 
-   #loginForm {
-    color: #fff;
-    font-weight: 300;
-   }
+#loginForm {
+  color: #fff;
+  font-weight: 300;
+}
 
+/* Generic form styles for specific forms */
+form#post-edit-form,
+form[name="createPost"] {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+form#post-edit-form div,
+form[name="createPost"] div {
+  margin-bottom: 15px;
+}
 
-   
+/* Label styles for both forms */
+form#post-edit-form label,
+form[name="createPost"] label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input and textarea styles for both forms */
+form#post-edit-form input[type="text"],
+form#post-edit-form textarea,
+form#post-edit-form input[type="url"],
+form[name="createPost"] input[type="text"],
+form[name="createPost"] input[type="url"],
+form[name="createPost"] textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
