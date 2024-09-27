@@ -219,11 +219,9 @@ img {
 #posts-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* 3 columns */
   gap: 1em;
   margin-inline: auto;
   width: min(90%, 70.5rem);
-  /* Responsive width */
   margin-bottom: 4rem;
 }
 
@@ -245,6 +243,17 @@ img {
   gap: 1em;
   margin-top: 2rem;
 }
+
+.no-post-msg-container {
+  display: flex;
+  justify-content: center;
+  grid-column: span 3;
+}
+
+.no-post-message {
+  color: var(--clr-primary-500);
+}
+
 
 /* ====================
     Search result card
@@ -400,7 +409,7 @@ img {
 
 
 #profile-bio {
-  color: var(--clr-primary-500);
+  color: #fff;
   font-weight: 300;
 }
 

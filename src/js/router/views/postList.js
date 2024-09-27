@@ -38,15 +38,22 @@ export function displayPosts(postsData) {
     console.log('Posts data:', postsData);
     const posts = Array.isArray(postsData.data) ? postsData.data : [];
 
+    const postsContainer = document.getElementById('posts-container');
+
     if (posts.length === 0) {
         console.log('No posts available for this profile.');
-        showError('No posts available.');
+        const noPostMessage = document.createElement('p');
+        noPostMessage.classList.add('no-post-message');
+        noPostMessage.textContent = 'This user has no posts.'
+        const messageContainer = document.createElement('div');
+        messageContainer.appendChild(noPostMessage);
+        messageContainer.classList.add('no-post-msg-container');
+        postsContainer.appendChild(messageContainer);
         return;
     }
 
     allPosts = posts;
 
-    const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = ''; 
 
     const fragment = document.createDocumentFragment();

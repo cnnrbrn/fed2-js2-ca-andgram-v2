@@ -11,6 +11,6 @@ export function handleAuthLogout() {
         window.location.href = '/auth/';
     } catch (error) {
         // Handle any unexpected errors during logout
-        showError('An error occurred while logging out. Please try again.'); // Show user-friendly error message
+        showError('An error occurred while logging out. Please try again.');
     }
 }
