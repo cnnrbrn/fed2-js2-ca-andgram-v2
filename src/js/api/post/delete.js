@@ -7,7 +7,6 @@ import { showError } from '../../ui/global/errorMessage.js';
 export async function deletePostById(postId) {
   if (!postId) {
     showError('Post ID is required'); // Notify user that post ID is needed
-    console.error('Post ID is required');
     return;
   }
 

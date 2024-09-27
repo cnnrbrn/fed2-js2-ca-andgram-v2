@@ -2,6 +2,7 @@ import { API_SOCIAL_POSTS } from '../constants.js';
 import { getAuthorizationHeaders } from '../headers.js';
 import { showError } from '../../ui/global/errorMessage.js';
 
+// Function for creating new post
 export async function createPost({ title, body, tags = '', media = '', alt = '' }) {
   const headers = getAuthorizationHeaders();
 
@@ -12,6 +13,11 @@ export async function createPost({ title, body, tags = '', media = '', alt = '' 
     url: media, 
     alt: alt || 'Image'
   };
+
+  if (media && !isValidURL(media)) {
+    showError('Invalid media URL.');
+    return null;
+  }
 
   try {
     // Send post request with post data
@@ -34,21 +40,29 @@ export async function createPost({ title, body, tags = '', media = '', alt = '' 
 
     // Parse and log the successful response
     const data = await response.json();
-    console.log('Response from post creation:', data);
 
-    // Check if the response contains the post ID
-    const newPostId = data.id || (data.data && data.data.id); 
+    // Get postId from created post
+    const newPostId = data.data.id; 
+    // Redirect user to newly created post
     if (newPostId) {
-      console.log('Redirecting to post with ID:', newPostId);
       window.location.href = `/post/index.html?id=${newPostId}`;
     } else {
       console.error('Post ID not found in the response:', data);
     }
-
     return data;
 
   } catch (error) {
     // Display error message to the user
     showError(`Error creating post: ${error.message}`);
+  }
+}
+
+// Function to validate a URL
+function isValidURL(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;  
   }
 }

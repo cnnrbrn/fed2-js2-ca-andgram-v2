@@ -48,7 +48,6 @@ export async function handleLogin(email, password, username) {
     localStorage.setItem('apiKey', apiKey);
     localStorage.setItem('email', email);
 
-
     // Verify that the username exists and that the associated email matches the login email
     const headers = getAuthorizationHeaders();
     const profileResponse = await fetch(`https://v2.api.noroff.dev/social/profiles/${username}`, {

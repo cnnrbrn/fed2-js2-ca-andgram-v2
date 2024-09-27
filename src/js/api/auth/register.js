@@ -1,9 +1,9 @@
 import { API_AUTH_REGISTER } from '../constants.js';
-import { showError } from '../../ui/global/errorMessage.js'; // Import error handling functions
+import { showError } from '../../ui/global/errorMessage.js';
 
 export async function register({ name, email, password }) {
   try {
-    // Gjør en POST-forespørsel til registreringsendepunktet
+    // Make POST request to register endpoint
     const response = await fetch(API_AUTH_REGISTER, {
       method: 'POST',
       headers: {
@@ -15,7 +15,7 @@ export async function register({ name, email, password }) {
         password,
       }),
     });
-
+    
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Registration failed');

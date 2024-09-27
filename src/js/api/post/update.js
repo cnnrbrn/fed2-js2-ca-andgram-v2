@@ -18,7 +18,7 @@ export async function updatePost(postId, postData) {
                 ...getAuthorizationHeaders(),
                 'Content-Type': 'application/json'
             },
-            // Add post data from edit form to body
+            // Add post data from edit form to request body
             body: JSON.stringify(postData)
         });
 
