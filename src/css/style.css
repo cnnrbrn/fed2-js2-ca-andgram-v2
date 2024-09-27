@@ -28,7 +28,7 @@ body {
   font-size: var(--fs-300);
   line-height: 1.6;
   overflow-x: hidden;
-  background: linear-gradient(to bottom, var(--clr-primary-600), var(--clr-primary-700));
+  background: var(--clr-primary-600);
   background-repeat: no-repeat;
   height: 100vh;
   
@@ -219,7 +219,57 @@ img {
   gap: 1em;
   margin-inline: auto;
   width: min(90%, 70.5rem); /* Responsive width */
+  margin-bottom: 4rem;
 }
+
+#post-body {
+  color: #fff;
+}
+
+#post-media {
+  max-width: 50vw;
+}
+
+#post-title {
+  font-size: var(--fs-700);
+  margin-top: 1rem;
+}
+
+.loggedin-post-buttons {
+  display: flex;
+  gap: 1em;
+  margin-top: 2rem;
+}
+
+/* ====================
+    Search result card
+   ==================== */
+
+#results .profile {
+  height: fit-content;
+  width: 300px;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #fff;
+  margin-bottom: 0.4rem;
+  transition: 250ms ease;
+}
+
+#results .profile:hover {
+  background-color: var(--clr-primary-500);
+}
+
+#results h3 {
+  color: var(--clr-primary-700);
+  margin-bottom:0;
+  font-size: var(--fs-300);
+}
+
+#results p {
+  margin: 0;
+  color: var(--clr-primary-700);
+}
+
 
 
 /* ====================
@@ -342,11 +392,6 @@ img {
    #profile-name {
     margin-bottom: 0.4em;
    }
-
-   .bg-wrapper {
-    background: linear-gradient(to bottom, var(--clr-primary-600), var(--clr-primary-700));
-    background-repeat: no-repeat;
-  }
 
   /* ====================
     Edit profile modal

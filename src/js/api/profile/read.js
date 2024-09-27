@@ -49,30 +49,34 @@ export function displaySearchResults(data) {
 
     // Loop through profiles and display each one
     profiles.forEach(profile => {
+        // Create a wrapper for the profile
         const profileElement = document.createElement('div');
         profileElement.classList.add('profile'); // Add a class for styling
-
-        // Create elements for profile name, bio, and link to full post
+    
+        // Create elements for profile name and bio
         const nameElement = document.createElement('h3');
         nameElement.textContent = `${profile.name}`;
-
+    
         const bioElement = document.createElement('p');
-        if(bioElement) {
-        bioElement.textContent = `${profile.bio}`;
+        if (profile.bio) {
+            bioElement.textContent = `${profile.bio}`;
         }
-
+    
         // Create a link to the profile page
         const profileLink = document.createElement('a');
         profileLink.href = `/profile/index.html?name=${profile.name}`;
-        profileLink.textContent = 'View Profile';
-
-        // Append the elements to the profileElement
+        profileLink.classList.add('profile-link'); // Optional: Add class for styling
+    
+        // Append name and bio to the profileElement
         profileElement.appendChild(nameElement);
         profileElement.appendChild(bioElement);
-        profileElement.appendChild(profileLink);
-
-        // Append the profileElement to the results div
-        resultsDiv.appendChild(profileElement);
+    
+        // Wrap the entire profileElement with the profileLink
+        profileLink.appendChild(profileElement);
+    
+        // Append the profileLink to the results div
+        resultsDiv.appendChild(profileLink);
+    
     });
 }
 
