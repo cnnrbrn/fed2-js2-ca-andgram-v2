@@ -4,12 +4,9 @@ export function getPostIdFromURL() {
   
   if (!postId) {
       console.error('Post ID not found');
-      return null; // Return null to indicate that no ID was found
+      return null;
   }
-
-  console.log(postId);
   return postId; // Return the post ID if found
-
 }
 
 

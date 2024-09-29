@@ -14,18 +14,18 @@ export function updateFormWithPostData(postData) {
 
 // Function to collect data from the form
 export function getUpdatedPostData() {
-  const title = document.getElementById('title').value.trim(); 
-  const body = document.getElementById('body').value.trim();   
-  const tags = document.getElementById('tags').value.split(',').map(tag => tag.trim()).filter(tag => tag); // Trim and filter empty tags
+  const title = document.getElementById('title').value.trim();
+  const body = document.getElementById('body').value.trim();
+  const tags = document.getElementById('tags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
   const media = {
-    url: document.getElementById('media-url').value.trim(),   
-    alt: document.getElementById('media-alt').value.trim()  
+    url: document.getElementById('media-url').value.trim(),
+    alt: document.getElementById('media-alt').value.trim()
   };
 
   // Basic validation to ensure required fields are filled
   if (!title) {
     showError('Title is required.'); // Display error if title is empty
-    return null; 
+    return null;
   }
 
   if (!body) {
@@ -44,13 +44,15 @@ export function getUpdatedPostData() {
 // Function to add event listener to the save button
 export function setupSaveButton(callback) {
   document.getElementById('save-button').addEventListener('click', async (event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
     const updatedPostData = getUpdatedPostData(); // Get updated post data
 
     if (updatedPostData) { // Proceed only if data is valid
       try {
-        await callback(updatedPostData); // Execute the callback with the updated post data
-        showSuccess('Post updated successfully!'); // Show success message
+        await callback(updatedPostData);
+        if (updatedPostData) {
+          localStorage.setItem('updateSuccess', 'true');
+        }
       } catch (error) {
         console.error('Error updating post:', error.message);
         showError(error.message || 'An error occurred while updating the post. Please try again.'); // Show user-friendly error message

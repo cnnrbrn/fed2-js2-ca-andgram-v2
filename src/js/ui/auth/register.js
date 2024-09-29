@@ -1,4 +1,5 @@
 import { register } from '../../api/auth/register.js';
+import { showError } from '../global/errorMessage.js';
 
 export async function onRegister(event) {
   event.preventDefault();
@@ -7,20 +8,22 @@ export async function onRegister(event) {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
+    // Basic client-side validation
+    if (!name || !email || !password) {
+      showError('Please fill out all required fields.');
+      return;
+    }
+
   try {
-    const userData = await register({
-      name,
-      email,
-      password
-    });
+    const userData = await register({ name, email, password });
+
+    // Store registration success and redirect
     localStorage.setItem('registerSuccess', 'true'); 
-    console.log('Registration successful', userData);
-    // Redirect to login page or another page
     window.location.href = "/auth/login/";
   } catch (error) {
-    console.error('Registration failed', error);
+    console.error('Registration failed:', error);
+    showError('Registration failed. Please try again later.');
   }
 }
-
 // Adding event listener to the register form
 document.querySelector('form[name="register"]').addEventListener('submit', onRegister);

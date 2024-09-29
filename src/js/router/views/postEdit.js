@@ -6,10 +6,6 @@ import { updateFormWithPostData, getUpdatedPostData, setupSaveButton } from '../
 import { API_SOCIAL_POSTS } from "../../api/constants.js";
 import { checkAllStatuses } from "../../ui/global/successPopup.js";
 
-// Show popup
-window.onload = checkAllStatuses();
-
-// Check if user is logged in
 authGuard();
 
 // Function for fetching post data (to extract into form)
@@ -25,8 +21,6 @@ async function fetchPostData(postId) {
   }
   return response.json();
 }
-
-console.log('view/postEdit is running')
 
 window.onload = async () => {
   // Get post ID from URL query params
@@ -49,10 +43,13 @@ window.onload = async () => {
       const result = await updatePost(postId, updatedPostData);
 
       if (result) {
-        console.log('Post updated successfully:', result);
         localStorage.setItem('updateSuccess', 'true');
+        checkAllStatuses();
+
+        setTimeout(() => {
+          // Redirect to edited post
         window.location.href = `/post/?id=${postId}`;
-        // Optionally redirect to another page or show a success message
+      }, 3000);
       }
     });
   } else {

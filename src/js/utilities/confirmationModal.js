@@ -15,7 +15,7 @@ export function showConfirm(message) {
       // When the OK button is clicked
       okButton.onclick = () => {
         modal.style.display = 'none';
-        resolve(true); // Resolve the promise with true
+        resolve(true);
       };
   
       // When the Cancel button is clicked

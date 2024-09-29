@@ -2,11 +2,10 @@ import { deletePostById } from '../../api/post/delete.js';
 import { readPost } from '../../api/post/read.js';
 import { getPostIdFromURL } from '../../utilities/getPostId.js';
 import { checkAllStatuses } from '../../ui/global/successPopup.js';
+import { redirectToProfile } from '../../api/profile/myProfileRedirect.js';
 
-// Ensure checkAllStatuses is called on window load
 window.onload = function() {
-    checkAllStatuses(); 
-    displaySinglePost(); // Load and display the post once the page loads
+    displaySinglePost(); // Display post data on page load
 };
 
 // Function to display a single post
@@ -41,6 +40,7 @@ async function displaySinglePost() {
             const editButton = document.getElementById('edit-post-btn');
             if (editButton) {
                 editButton.addEventListener('click', () => {
+                    // Redirect to edit post page
                     window.location.href = `/post/edit/?id=${postId}`;
                 });
             }
@@ -59,19 +59,16 @@ if (deleteButton) {
         const postId = getPostIdFromURL(); // Retrieve the post ID
         if (postId) {
             try {
-                await deletePostById(postId); // Ensure deletePostById is async
-                console.log('Post deleted successfully');
+                await deletePostById(postId);
 
-                // Set success message and show popup
+                // Show success popup
                 localStorage.setItem('deletePostSuccess', 'true'); 
-                checkAllStatuses(); // Show the success popup
+                checkAllStatuses();
 
                 // Delay the redirection to allow the popup to be seen
-                const userName = localStorage.getItem('username');
                 setTimeout(() => {
-                    console.log('Redirecting to profile page');
-                    window.location.href = `/profile/index.html?name=${userName}`; // Redirect to profile page
-                }, 3000); // Wait for 3 seconds before redirecting
+                    redirectToProfile(); // Redirect to profile page
+                }, 3000);
 
             } catch (error) {
                 console.error('Error deleting post:', error);

@@ -1,9 +1,11 @@
 import { createPost } from "../../api/post/create";
 import { showError } from '../../ui/global/errorMessage.js';
 
+// Retrieve form input and pass the data to the createPost function
 export async function onCreatePost(event) {
   event.preventDefault();
 
+  // Get value from form inputs
   const form = event.target;
   const title = form.elements.title.value.trim(); 
   const body = form.elements.body.value.trim();   
@@ -13,25 +15,31 @@ export async function onCreatePost(event) {
 
   // Basic validation to ensure required fields are filled
   if (!title || !body) {
-    showError('Title and body are required fields.'); // Display error if required fields are empty
+    showError('Title and body are required fields.'); // Show error to user
     return;
   }
 
   try {
+    // Process the data through the createPost function
     const newPost = await createPost({ title, body, tags, media, alt });
-
-    console.log('New post object:', newPost);
-
+    // Show success message when post is created
     localStorage.setItem('newPostSuccess', 'true');
-    console.log('Post created successfully');
-    
+    // Reset form
     form.reset();
 
   } catch (error) {
-    console.error('Error creating post:', error.message);
-    showError(error.message || 'An error occurred while creating the post. Please try again.'); // Show user-friendly error message
+    console.error('Error creating post:', error);
+  
+    // Check for and display error messages if available
+    if (error.errors && Array.isArray(error.errors)) {
+      const errorMessages = error.errors.map(err => err.message).join(', ');
+      showError(errorMessages);
+    } else {
+      // Show a fallback error message if no specific errors are provided
+      showError(error.message || 'An error occurred while creating the post. Please try again.');
+    }
   }
 }
 
-// Adding event listener to the create post form
+// Add event listener to the create post form
 document.querySelector('form[name="createPost"]').addEventListener('submit', onCreatePost);

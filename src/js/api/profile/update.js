@@ -33,8 +33,9 @@ export async function updateProfile(username, { avatar, banner, bio }) {
     }
 
     try {
+        // Send PUT request with updated post data
         const response = await fetch(`${API_SOCIAL_PROFILES}/${username}`, {
-            method: 'PUT', // Use PUT for updates
+            method: 'PUT', 
             headers,
             body: JSON.stringify(body)
         });
@@ -48,7 +49,6 @@ export async function updateProfile(username, { avatar, banner, bio }) {
         }
 
         const data = await response.json();
-        console.log('Profile updated successfully:', data);
         return data;
 
     } catch (error) {

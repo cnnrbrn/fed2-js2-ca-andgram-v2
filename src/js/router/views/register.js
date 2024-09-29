@@ -1,9 +1,11 @@
 import { onRegister } from "../../ui/auth/register";
 import { checkAllStatuses } from "../../ui/global/successPopup";
 
-// Show popup
-window.onload = checkAllStatuses();
+// Check for flags in localStorage
+checkAllStatuses();
 
+// Get register form
 const form = document.forms.register;
 
+// Execute onRegister on submit
 form.addEventListener("submit", onRegister);
