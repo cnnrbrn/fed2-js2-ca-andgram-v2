@@ -1,39 +1,53 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noroff FED2 JS2 CA</title>
-    <script type="module" src="/src/app.js"></script>
-  </head>
-  <body>
-  <div class="bg-wrapper">
-    <div class="container">
-      <div id="successPopup">Message</div>
-    
-    <div class="post-container">
-      <div class="loggedin-post-buttons">
-        <button id="delete-post-btn">Delete Post</button>
-        <button id="edit-post-btn">Edit Post</button>
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noroff FED2 JS2 CA</title>
+  <script type="module" src="/src/app.js"></script>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="site-header">
+    <a href="/">
+      <a href="/">
+        <img src="/images/piclia-logo.svg" alt="Logo" class="logo">
+      </a>
       </div>
-  
-      <h1 id="post-title">Post Title</h1>
-      <p id="post-body">Post Body</p>
-      <img id="post-media" alt="Post media" style="display: none;">
-  
-        <!-- Confirmation Modal -->
-    <div id="confirm-modal" class="delete-modal">
-      <div class="delete-modal-content">
-        <p id="confirm-message">Are you sure?</p>
-        <button id="confirm-ok">OK</button>
-        <button id="confirm-cancel">Cancel</button>
+  </header>
+  <!-- Main section -->
+  <main>
+    <div class="bg-wrapper">
+      <div class="container">
+        <div id="successPopup">Message</div>
+
+        <div class="post-container">
+          <div class="loggedin-post-buttons">
+            <button id="delete-post-btn">Delete Post</button>
+            <button id="edit-post-btn">Edit Post</button>
+          </div>
+
+          <h1 id="post-title">Post Title</h1>
+          <p id="post-body">Post Body</p>
+          <img id="post-media" alt="Post media" style="display: none;">
+
+          <!-- Confirmation Modal -->
+          <div id="confirm-modal" class="delete-modal">
+            <div class="delete-modal-content">
+              <p id="confirm-message">Are you sure?</p>
+              <button id="confirm-ok">OK</button>
+              <button id="confirm-cancel">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
-    </div>
-  
-  
-    </div>
-  </div>
-  </body>
+  </main>
+</body>
+
 </html>
