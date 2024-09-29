@@ -25,7 +25,6 @@ async function fetchPostData(postId) {
 window.onload = async () => {
   // Get post ID from URL query params
   const postId = new URLSearchParams(window.location.search).get('id');
-  console.log('Post ID:', postId);
 
   // If ID is present, run fetch function to get post data
   if (postId) {

@@ -24,6 +24,7 @@ async function fetchProfilePosts(profileName) {
         }
 
         const postsData = await response.json();
+    
         // Display posts with displayPosts function
         displayPosts(postsData);
 
@@ -33,8 +34,7 @@ async function fetchProfilePosts(profileName) {
     }
 }
 
-export function displayPosts(postsData) {
-    console.log('Posts data:', postsData);
+function displayPosts(postsData) {
     const posts = Array.isArray(postsData.data) ? postsData.data : [];
 
     const postsContainer = document.getElementById('posts-container');

@@ -1,6 +1,5 @@
 import { createPost } from "../../api/post/create";
 import { showError } from '../../ui/global/errorMessage.js';
-import { checkAllStatuses } from "../global/successPopup.js";
 
 // Retrieve form input and pass the data to the createPost function
 export async function onCreatePost(event) {

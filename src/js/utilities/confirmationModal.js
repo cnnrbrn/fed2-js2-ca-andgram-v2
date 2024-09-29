@@ -7,7 +7,8 @@ export function showConfirm(message) {
       const cancelButton = document.getElementById('confirm-cancel');
       
       // Set the message in the modal
-      messageElem.textContent = message;
+      if (messageElem) {
+        messageElem.textContent = message;
   
       // Show the modal
       modal.style.display = 'block';
@@ -23,5 +24,7 @@ export function showConfirm(message) {
         modal.style.display = 'none';
         resolve(false); // Resolve the promise with false
       };
+      }
+      
     });
   }
