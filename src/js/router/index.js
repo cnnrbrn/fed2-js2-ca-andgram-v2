@@ -1,31 +1,55 @@
 export default async function router(pathname = window.location.pathname) {
-  // Normalize pathname by removing trailing '/index.html'
+
+  // Normalize the pathname by removing any '/index.html' at the end
   pathname = pathname.replace(/\/index\.html$/, '');
 
-  // Get query parameters
+  // Get the query string
   const searchParams = new URLSearchParams(window.location.search);
   const profileName = searchParams.get('name');
 
-  const routeMap = {
-    "/": "./views/home.js",
-    "/auth/": "./views/auth.js",
-    "/auth/login/": "./views/login.js",
-    "/auth/register/": "./views/register.js",
-    "/post/": "./views/post.js",
-    "/post": "./views/post.js",
-    "/post/edit/": "./views/postEdit.js",
-    "/post/create": "./views/postCreate.js",
-    "/post/create/": "./views/postCreate.js",
-    "/profile": "./views/profile.js"
-  };
+  switch (pathname) {
+    case "/":
+      await import("./views/home.js");
+      break;
 
-  if (routeMap[pathname]) {
-    await import(routeMap[pathname]);
+    case "/auth/":
+      await import("./views/auth.js");
+      break;
 
-    if (pathname === "/profile" && profileName) {
-      await import("./views/postList.js");
-    }
-  } else {
-    await import("./views/notFound.js");
+    case "/auth/login/":
+      await import("./views/login.js");
+      break;
+
+    case "/auth/register/":
+      await import("./views/register.js");
+      break;
+
+    case "/post/":
+    case "/post":
+      await import("./views/post.js");
+      break;
+
+    case "/post/edit/":
+      await import("./views/postEdit.js");
+      break;
+
+    // Handle both "/post/create" and "/post/create/"
+    case "/post/create":
+    case "/post/create/":
+      await import("./views/postCreate.js");
+      break;
+
+    // Handle profile page, even when using '/profile/index.html?name=someusername'
+    case "/profile":
+      await import("./views/profile.js");
+
+      // Dynamically fetch the profile name from the query string
+      if (profileName) {
+        await import("./views/postList.js");
+      }
+      break;
+
+    default:
+      await import("./views/notFound.js");
   }
 }
