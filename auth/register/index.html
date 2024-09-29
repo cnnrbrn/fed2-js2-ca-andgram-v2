@@ -1,59 +1,53 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Noroff FED2 JS2 CA</title>
-    <script type="module" src="/src/app.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
 
-  <body>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noroff FED2 JS2 CA</title>
+  <script type="module" src="/src/app.js"></script>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="site-header">
+    <a href="/">
+      <a href="/">
+        <img src="/public/images/piclia-logo.svg" alt="Logo" class="logo">
+      </a>
+      </div>
+  </header>
+  <!-- Main section -->
+  <main>
     <div class="container">
       <h1 class="auth-heading">Register</h1>
 
-    <div id="successPopup">Message</div>
-    <form name="register" class="auth-form">
-      <div>
-        <label for="name">Name</label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          required
-          maxlength="20"
-          pattern="^[\w]+$"
-          placeholder="Enter a username"
-        />
-      </div>
+      <div id="successPopup">Message</div>
+      <form name="register" class="auth-form">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" type="text" name="name" required maxlength="20" pattern="^[\w]+$"
+            placeholder="Enter a username" />
+        </div>
 
-      <div>
-        <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          required
-          pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
-          placeholder="Enter a valid Noroff email"
-        />
-      </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" name="email" required pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+            placeholder="Enter a valid Noroff email" />
+        </div>
 
-      <div>
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          required
-          minlength="8"
-          placeholder="Enter your password"
-        />
-      </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" required minlength="8"
+            placeholder="Enter your password" />
+        </div>
 
-      <a href="/auth/login/">Login</a>
-      <button>Register</button>
-    </form>
+        <a href="/auth/login/">Login</a>
+        <button>Register</button>
+      </form>
     </div>
-  </body>
+  </main>
+</body>
+
 </html>

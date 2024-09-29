@@ -45,15 +45,18 @@ export async function createPost({ title, body, tags = '', media = '', alt = '' 
     const newPostId = data.data.id; 
     // Redirect user to newly created post
     if (newPostId) {
+      localStorage.setItem('newPostSuccess', 'true');
       window.location.href = `/post/index.html?id=${newPostId}`;
+      return true;
     } else {
       console.error('Post ID not found in the response:', data);
+      return false;
     }
-    return data;
-
+    
   } catch (error) {
     // Display error message to the user
     showError(`Error creating post: ${error.message}`);
+    return false;
   }
 }
 

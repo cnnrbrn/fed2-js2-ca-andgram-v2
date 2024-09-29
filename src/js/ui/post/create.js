@@ -1,5 +1,6 @@
 import { createPost } from "../../api/post/create";
 import { showError } from '../../ui/global/errorMessage.js';
+import { checkAllStatuses } from "../global/successPopup.js";
 
 // Retrieve form input and pass the data to the createPost function
 export async function onCreatePost(event) {
@@ -7,11 +8,11 @@ export async function onCreatePost(event) {
 
   // Get value from form inputs
   const form = event.target;
-  const title = form.elements.title.value.trim(); 
-  const body = form.elements.body.value.trim();   
-  const tags = form.elements.tags.value.trim();  
-  const media = form.elements.media.value.trim(); 
-  const alt = form.elements.alt.value.trim(); 
+  const title = form.elements.title.value.trim();
+  const body = form.elements.body.value.trim();
+  const tags = form.elements.tags.value.trim();
+  const media = form.elements.media.value.trim();
+  const alt = form.elements.alt.value.trim();
 
   // Basic validation to ensure required fields are filled
   if (!title || !body) {
@@ -22,14 +23,16 @@ export async function onCreatePost(event) {
   try {
     // Process the data through the createPost function
     const newPost = await createPost({ title, body, tags, media, alt });
-    // Show success message when post is created
-    localStorage.setItem('newPostSuccess', 'true');
-    // Reset form
-    form.reset();
+    if (newPost) {
+      // Reset form
+      form.reset();
+    } else {
+      showError('Post creation failed.');
+    }
 
   } catch (error) {
     console.error('Error creating post:', error);
-  
+
     // Check for and display error messages if available
     if (error.errors && Array.isArray(error.errors)) {
       const errorMessages = error.errors.map(err => err.message).join(', ');

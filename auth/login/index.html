@@ -9,25 +9,36 @@
     
   </head>
   <body>
-   <div class="container">
-    <h1 class="auth-heading">Login</h1>
-    <div id="successPopup">Message</div>
-    <form name="login" id="loginForm" class="auth-form">
-      <div>
-        <label for="email">Email</label>
-        <input id="email" type="email" name="email" placeholder="Enter your email" required />
+     <!-- Header Section -->
+     <header class="site-header">
+      <a href="/">
+          <a href="/">
+              <img src="/public/images/piclia-logo.svg" alt="Logo" class="logo">
+          </a>
       </div>
-      <div>
-        <label for="username">Username:</label>
-          <input type="text" id="username" name="username" placeholder="Enter your username" required>
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Enter your password" required />
-      </div>
-      <button id="loginButton" type="submit">Login</button>
-      <a href="/auth/register/">Register</a>
-    </form>
-   </div>
+  </header>
+  <!-- Main section -->
+   <main>
+    <div class="container">
+      <h1 class="auth-heading">Login</h1>
+      <div id="successPopup">Message</div>
+      <form name="login" id="loginForm" class="auth-form">
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" name="email" placeholder="Enter your email" required />
+        </div>
+        <div>
+          <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Enter your password" required />
+        </div>
+        <button id="loginButton" type="submit">Login</button>
+        <a href="/auth/register/">Register</a>
+      </form>
+     </div>
+   </main>
   </body>
 </html>

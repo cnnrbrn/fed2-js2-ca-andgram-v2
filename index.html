@@ -7,26 +7,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Noroff FED2 JS2 CA</title>
   <script type="module" src="/src/app.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Archivo:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Archivo:wght@400;700&display=swap"
+    rel="stylesheet">
 
 </head>
 
 <body">
+  <!-- Header Section -->
+  <header class="site-header">
+    <a href="/">
+      <a href="/">
+        <img src="/public/images/piclia-logo.svg" alt="Logo" class="logo">
+      </a>
+      </div>
+  </header>
+  <!-- Main section -->
+  <main>
+    <div class="container">
+      <h1>Home</h1>
 
-  <div class="container">
-    <h1>Home</h1>
+      <div id="successPopup">Message</div>
+      <button id="myProfile">My Profile</button>
+      <a href="/auth/login/" id="login">Login</a>
+      <a href="/auth/register/" id="register">Register</a>
+      <button id="logoutButton" class>Logout</button>
 
-  <div id="successPopup">Message</div>
-  <button id="myProfile">My Profile</button>
-  <a href="/auth/login/" id="login">Login</a>
-  <a href="/auth/register/" id="register">Register</a>
-  <button id="logoutButton" class>Logout</button>
+      <h2 class="search-heading">Search Profiles</h2>
+      <input type="text" id="searchInput" placeholder="Enter username" />
+      <button id="searchButton">Search</button>
+      <div id="results"></div>
+    </div>
+  </main>
 
-  <h2 class="search-heading">Search Profiles</h2>
-    <input type="text" id="searchInput" placeholder="Enter username" />
-    <button id="searchButton">Search</button>
-    <div id="results"></div>
-  </div>
+  </body>
 
-</body>
 </html>

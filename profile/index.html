@@ -8,56 +8,67 @@
     <script type="module" src="/src/app.js"></script>
   </head>
   <body>
-    <div id="successPopup">Message</div>
-        <!-- feth post and user data and append to this -->
-        
-       <div class="bg-wrapper">
-        <div id="profile-header">
-          <div id="banner-container">
-            
-              <img id="banner-image" alt="User's banner" />
-          </div>
-          <div id="profile-pic-container">
-              <img id="profile-image" alt="User's profile picture" />
-          </div>
-
-          <h2 id="profile-name">Profile name</h2>
-          <p id="profile-bio">Bio</p>
+    <!-- Header Section -->
+    <header class="site-header">
+      <a href="/">
+          <a href="/">
+              <img src="/public/images/piclia-logo.svg" alt="Logo" class="logo">
+          </a>
       </div>
-     <div class="profile-content-container">
-      <div id="profile-container"></div>
-      <div id="posts-container"></div>
-      <a id="load-more-button" style="display: none;">Load All Posts</a>
-     </div>
-       </div>
+  </header>
+  <!-- Main section -->
+   <main>
+    <div id="successPopup">Message</div>
+    <!-- feth post and user data and append to this -->
+    
+   <div class="bg-wrapper">
+    <div id="profile-header">
+      <div id="banner-container">
+        
+          <img id="banner-image" alt="User's banner" />
+      </div>
+      <div id="profile-pic-container">
+          <img id="profile-image" alt="User's profile picture" />
+      </div>
 
-       <!-- Profile Edit Modal (Initially hidden) -->
-<div id="profile-edit-modal" class="modal" style="display: none;">
-  <div class="modal-content">
-    <h2>Edit Profile</h2>
-    <form id="profile-edit-form">
-      <label for="avatar-url">Avatar URL:</label>
-      <input type="text" id="avatar-url" name="avatar-url" placeholder="Enter new avatar URL" required><br>
-
-      <label for="avatar-alt">Avatar Alt Text:</label>
-      <input type="text" id="avatar-alt" name="avatar-alt" placeholder="Enter alt text for avatar"><br>
-
-      <label for="banner-url">Banner URL:</label>
-      <input type="text" id="banner-url" name="banner-url" placeholder="Enter new banner URL"><br>
-
-      <label for="banner-alt">Banner Alt Text:</label>
-      <input type="text" id="banner-alt" name="banner-alt" placeholder="Enter alt text for banner"><br>
-
-      <label for="bio">Bio:</label>
-      <textarea id="bio" name="bio" placeholder="Enter new bio"></textarea><br>
-
-      <button type="submit">Update Profile</button>
-      <button type="button" id="cancel-edit">Cancel</button>
-    </form>
+      <h2 id="profile-name">Profile name</h2>
+      <p id="profile-bio">Bio</p>
   </div>
+ <div class="profile-content-container">
+  <div id="profile-container"></div>
+  <div id="posts-container"></div>
+  <a id="load-more-button" style="display: none;">Load All Posts</a>
+ </div>
+   </div>
+
+   <!-- Profile Edit Modal (Initially hidden) -->
+<div id="profile-edit-modal" class="modal" style="display: none;">
+<div class="modal-content">
+<h2>Edit Profile</h2>
+<form id="profile-edit-form">
+  <label for="avatar-url">Avatar URL:</label>
+  <input type="text" id="avatar-url" name="avatar-url" placeholder="Enter new avatar URL" required><br>
+
+  <label for="avatar-alt">Avatar Alt Text:</label>
+  <input type="text" id="avatar-alt" name="avatar-alt" placeholder="Enter alt text for avatar"><br>
+
+  <label for="banner-url">Banner URL:</label>
+  <input type="text" id="banner-url" name="banner-url" placeholder="Enter new banner URL"><br>
+
+  <label for="banner-alt">Banner Alt Text:</label>
+  <input type="text" id="banner-alt" name="banner-alt" placeholder="Enter alt text for banner"><br>
+
+  <label for="bio">Bio:</label>
+  <textarea id="bio" name="bio" placeholder="Enter new bio"></textarea><br>
+
+  <button type="submit">Update Profile</button>
+  <button type="button" id="cancel-edit">Cancel</button>
+</form>
+</div>
 </div>
 
-     
-  
+ 
+
+   </main>
   </body>
 </html>

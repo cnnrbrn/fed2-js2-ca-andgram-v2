@@ -22,11 +22,13 @@ export async function deletePostById(postId) {
       method: 'DELETE',
       headers: getAuthorizationHeaders(),
     });
-
+    
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Failed to delete post');
     }
+
+    return response.status >= 200 && response.status < 300;
 
   } catch (error) {
     // Display error message to the user

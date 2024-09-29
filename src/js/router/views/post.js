@@ -6,6 +6,7 @@ import { redirectToProfile } from '../../api/profile/myProfileRedirect.js';
 
 window.onload = function() {
     displaySinglePost(); // Display post data on page load
+    checkAllStatuses();
 };
 
 // Function to display a single post
@@ -59,17 +60,24 @@ if (deleteButton) {
         const postId = getPostIdFromURL(); // Retrieve the post ID
         if (postId) {
             try {
-                await deletePostById(postId);
+            const deletionSuccessful = await deletePostById(postId);
 
+            // Check if the deletion was successful
+            if (deletionSuccessful) {
                 // Show success popup
                 localStorage.setItem('deletePostSuccess', 'true'); 
                 checkAllStatuses();
-
+    
                 // Delay the redirection to allow the popup to be seen
                 setTimeout(() => {
                     redirectToProfile(); // Redirect to profile page
                 }, 3000);
-
+            } else {
+                // Handle the case where deletion was not successful
+                console.error('Post deletion failed.');
+                // Optionally show a failure message or notification
+            }
+                
             } catch (error) {
                 console.error('Error deleting post:', error);
             }

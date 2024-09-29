@@ -237,6 +237,39 @@ img {
 }
 
 /* ====================
+    Header
+   ==================== */
+
+.site-header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--clr-contrast-400);
+  color: white;
+  padding: 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 30px;
+  width: auto;
+}
+
+main {
+  padding-top: 70px;
+}
+
+
+/* ====================
     Search section
    ==================== */
 
@@ -539,6 +572,7 @@ form[name="createPost"] {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
+  margin-bottom: 200px;
   background-color: #e6e6e6;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
