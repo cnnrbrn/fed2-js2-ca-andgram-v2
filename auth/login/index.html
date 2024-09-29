@@ -9,9 +9,10 @@
     
   </head>
   <body>
-    <h1>Login</h1>
+   <div class="container">
+    <h1 class="auth-heading">Login</h1>
     <div id="successPopup">Message</div>
-    <form name="login" id="loginForm">
+    <form name="login" id="loginForm" class="auth-form">
       <div>
         <label for="email">Email</label>
         <input id="email" type="email" name="email" placeholder="Enter your email" required />
@@ -24,8 +25,9 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password" placeholder="Enter your password" required />
       </div>
-      <a href="/auth/register/">Register</a>
       <button id="loginButton" type="submit">Login</button>
+      <a href="/auth/register/">Register</a>
     </form>
+   </div>
   </body>
 </html>

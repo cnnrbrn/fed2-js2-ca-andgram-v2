@@ -9,10 +9,11 @@
   </head>
 
   <body>
-    <h1>Register</h1>
+    <div class="container">
+      <h1 class="auth-heading">Register</h1>
 
     <div id="successPopup">Message</div>
-    <form name="register">
+    <form name="register" class="auth-form">
       <div>
         <label for="name">Name</label>
         <input
@@ -22,7 +23,7 @@
           required
           maxlength="20"
           pattern="^[\w]+$"
-          title="Please enter a username using only letters and numbers"
+          placeholder="Enter a username"
         />
       </div>
 
@@ -34,7 +35,7 @@
           name="email"
           required
           pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
-          title="Please enter a valid noroff.no or stud.noroff.no address"
+          placeholder="Enter a valid Noroff email"
         />
       </div>
 
@@ -46,11 +47,13 @@
           id="password"
           required
           minlength="8"
+          placeholder="Enter your password"
         />
       </div>
 
       <a href="/auth/login/">Login</a>
       <button>Register</button>
     </form>
+    </div>
   </body>
 </html>
