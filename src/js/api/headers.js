@@ -1,16 +1,20 @@
-export function getAuthorizationHeaders() {
-  const accessToken = localStorage.getItem('accessToken');
-  const apiKey = localStorage.getItem('apiKey');
+import { API_KEY } from "./constants";
+import { loadToken } from "../utilities/storage"
 
-  if (!accessToken || !apiKey) {
-    throw new Error('Access token or API key not found');
+export function headers() {
+  const headers = new Headers();
+
+  const token = loadToken();
+
+  if (API_KEY) {
+    headers.append("X-Noroff-API-Key", API_KEY);
   }
 
-  // Construct headers with access token and API key
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${accessToken}`,
-    'X-Noroff-API-Key': apiKey
-  };
+  if (token) {
+    headers.append("Authorization", `Bearer ${token}`);
+  }
+
+  headers.append('Content-Type', "application/json");
+
   return headers;
 }

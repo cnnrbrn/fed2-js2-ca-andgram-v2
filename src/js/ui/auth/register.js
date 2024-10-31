@@ -1,29 +1,24 @@
-import { register } from '../../api/auth/register.js';
-import { showError } from '../global/errorMessage.js';
+import { register } from "../../api/auth/register.js";
+import { displayMessage } from "../../components/shared/displayMessage.js";
 
 export async function onRegister(event) {
-  event.preventDefault();
+    event.preventDefault();
+    console.log('registering');
+    
 
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
-    // Basic client-side validation
-    if (!name || !email || !password) {
-      showError('Please fill out all required fields.');
-      return;
+    try {
+    await register(data);
+    displayMessage("#message", "success", "Registered successfully. <a href='/auth/login/'>Login</a> to access your profile.");
+    form.reset();
     }
 
-  try {
-    const userData = await register({ name, email, password });
-
-    // Store registration success and redirect
-    localStorage.setItem('registerSuccess', 'true'); 
-    window.location.href = "/auth/login/";
-  } catch (error) {
-    console.error('Registration failed:', error);
-    showError('Registration failed. Please try again later.');
-  }
+    
+    catch(error) {
+        console.log(JSON.stringify(error));
+        displayMessage("#message", "error", error.message);
+    }
 }
-// Adding event listener to the register form
-document.querySelector('form[name="register"]').addEventListener('submit', onRegister);

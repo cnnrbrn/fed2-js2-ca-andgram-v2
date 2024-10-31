@@ -1,6 +1,5 @@
 import { clearLocalStorage } from '../../utilities/clearLocalStorage';
 import { showError } from '../../ui/global/errorMessage';
-import { checkAllStatuses } from '../../ui/global/successPopup';
 
 export function handleAuthLogout() {
     try {
