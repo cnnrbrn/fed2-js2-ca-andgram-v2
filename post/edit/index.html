@@ -10,38 +10,24 @@
 </head>
 
 <body>
-  <!-- Header Section -->
-  <header class="site-header">
-    <a href="/">
-      <a href="/">
-        <img src="/images/piclia-logo.svg" alt="Logo" class="logo">
-      </a>
-      </div>
+
+  <header>
+    <nav id="top-nav"></nav>
   </header>
-  <!-- Main section -->
+
   <main>
     <div class="container">
       <h1 class="text-center">Edit Post</h1>
-
-      <div id="successPopup">Message</div>
-      <form id="post-edit-form">
-        <input type="hidden" id="post-id" value="">
+      <div id="message"></div>
+      <form name="editPost" id="post-edit-form">
+        <input name="id" hidden>
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
+        <input name="title" id="title" type="text" required/>
 
         <label for="body">Body:</label>
-        <textarea id="body" name="body"></textarea>
+        <textarea id="body" name="body" required></textarea>
 
-        <label for="tags">Tags (comma separated):</label>
-        <input type="text" id="tags" name="tags">
-
-        <label for="media-url">Media URL:</label>
-        <input type="text" id="media-url" name="media-url">
-
-        <label for="media-alt">Media Alt Text:</label>
-        <input type="text" id="media-alt" name="media-alt">
-
-        <button type="button" id="save-button">Save</button>
+        <button>Edit Post</button>
       </form>
     </div>
   </main>

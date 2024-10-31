@@ -4,7 +4,6 @@ import { displayMessage } from "../../components/shared/displayMessage.js";
 export async function onRegister(event) {
     event.preventDefault();
     console.log('registering');
-    
 
     const form = event.target;
     const formData = new FormData(form);

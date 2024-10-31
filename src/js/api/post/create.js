@@ -1,71 +1,19 @@
-import { API_SOCIAL_POSTS } from '../constants.js';
-import { getAuthorizationHeaders } from '../headers.js';
-import { showError } from '../../ui/global/errorMessage.js';
+import { API_SOCIAL_POSTS } from "../constants";
+import { headers } from "../headers";
+export async function createPost({ title, body }) {
 
-// Function for creating new post
-export async function createPost({ title, body, tags = '', media = '', alt = '' }) {
-  const headers = getAuthorizationHeaders();
+  const data = JSON.stringify({ title, body });
+  const response = await fetch(`${API_SOCIAL_POSTS}`, {
+    method: "POST",
+    body: data,
+    headers: headers(),
+  });
 
-  // Convert tags to an array of strings
-  const tagsArray = tags.split(',').map(tag => tag.trim());
+  const json = await response.json();
 
-  const mediaObject = { 
-    url: media, 
-    alt: alt || 'Image'
-  };
-
-  if (media && !isValidURL(media)) {
-    showError('Invalid media URL.');
-    return null;
+  if (response.ok === false) {
+    throw new Error(json.errors[0].message);
   }
 
-  try {
-    // Send post request with post data
-    const response = await fetch(API_SOCIAL_POSTS, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        title,
-        body,
-        tags: tagsArray,
-        media: mediaObject
-      })
-    });
-
-    // Check if the response is okay
-    if (!response.ok) {
-      const errorData = await response.json(); 
-      throw new Error(errorData.message || 'Failed to create post');
-    }
-
-    // Parse and log the successful response
-    const data = await response.json();
-
-    // Get postId from created post
-    const newPostId = data.data.id; 
-    // Redirect user to newly created post
-    if (newPostId) {
-      localStorage.setItem('newPostSuccess', 'true');
-      window.location.href = `/post/index.html?id=${newPostId}`;
-      return true;
-    } else {
-      console.error('Post ID not found in the response:', data);
-      return false;
-    }
-    
-  } catch (error) {
-    // Display error message to the user
-    showError(`Error creating post: ${error.message}`);
-    return false;
-  }
-}
-
-// Function to validate a URL
-function isValidURL(string) {
-  try {
-    new URL(string);
-    return true;
-  } catch (_) {
-    return false;  
-  }
+  return json;
 }

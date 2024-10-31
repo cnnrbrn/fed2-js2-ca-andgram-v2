@@ -9,6 +9,10 @@
   <script type="module" src="/src/app.js"></script>
 </head>
 
+<header>
+  <nav id="top-nav"></nav>
+</header>
+
 <body>
   <main>
     <div class="container">
@@ -25,11 +29,9 @@
             required
             maxlength="20"
             pattern="^[\w]+$"
-            title="Please enter a username using only letters and numbers"
+            title="Enter username"
           />
         </div>
-    
-        
     
         <div>
           <label for="email">Email</label>
@@ -38,8 +40,7 @@
             type="email"
             name="email"
             required
-            pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
-            title="Please enter a valid noroff.no or stud.noroff.no address"
+            title="Enter a valid stud.noroff.no address"
           />
         </div>
     
@@ -50,7 +51,6 @@
             name="password"
             id="password"
             required
-            minlength="8"
           />
         </div>
     
