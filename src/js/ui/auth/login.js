@@ -1,26 +1,23 @@
-import { handleLogin } from "../../api/auth/login.js";
-import { showError } from "../global/errorMessage.js";
+import { login } from "../../api/auth/login.js";
+import { displayMessage } from "../../components/shared/displayMessage.js";
+import { saveName, saveToken } from "../../utilities/storage.js";
 
-// Retrieve form data, validate it, and pass to the handleLogin function
-export function onLogin(event) {
-  event.preventDefault();
-  
-  // Get value from input fields
-  const email = document.getElementById('email').value.trim();
-  const username = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
+export async function onLogin(event) {
+    event.preventDefault();
 
-  // Ensure all fields have a value; show error and return if validation fails
-  if (!email || !password || !username) {
-    showError('Email, username and password are required.');
-    return;
-  }
+    const form = event.target;
+    const formData = new FormData(form);
+    const userData = Object.fromEntries(formData.entries());
 
-  // Call handleLogin to submit login information to the endpoint
-  handleLogin(email, password, username)
-    .catch(error => {
-      console.error('Error during login submission:', error.message);
-      showError(error.message || 'An unknown error occurred. Please try again.');
-    });
+    try {
+    const { data } = await login(userData);
+    const { accessToken, name} = data;
+    saveToken(accessToken);
+    saveName(name);
+    window.location.href = "/";
+    }
+    catch(error) {
+        console.log(error);
+        displayMessage("#message", "error", error.message);
+    }
 }
-
