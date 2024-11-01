@@ -14,10 +14,17 @@ if(nav) {
     if(loggedin) {
         nav.innerHTML = `<a href="/">Home</a>
                          <a href="/profile/">My profile</a>
-                         <a href="post/create/">Create Post</a>
+                         <a href="/post/create/">Create Post</a>
                          <button id="logout-button">Logout</button>`;
 
-    onLogout();
+        if (window.location.pathname.includes("/profile")) {
+            const editProfileButton = document.createElement('a');
+            editProfileButton.href = "#";
+            editProfileButton.textContent = "Edit Profile";
+            editProfileButton.id = "edit-profile-button";
+            nav.appendChild(editProfileButton);
+        }
+
     }
     else {
         nav.innerHTML = `<a href="/">Home</a>

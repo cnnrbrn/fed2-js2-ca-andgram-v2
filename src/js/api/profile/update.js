@@ -1,58 +1,41 @@
-import { API_SOCIAL_PROFILES } from '../constants.js'; // Adjust based on your project structure
-import { getAuthorizationHeaders } from '../headers.js';
-import { showError} from '../../ui/global/errorMessage.js';
+import { loadName } from '../../utilities/storage.js';
+import { API_SOCIAL_PROFILES } from '../constants.js'; 
+import { headers } from '../headers.js';
 
-export async function updateProfile(username, { avatar, banner, bio }) {
-    const headers = getAuthorizationHeaders();
-    
-    // Prepare the body for the request
+export async function updateProfile({ avatar, banner, bio }) {
+    const authHeaders = headers();
     const body = {};
-    
-    if (bio) {
-        body.bio = bio;
-    }
-    
+
+    if (bio) body.bio = bio;
     if (avatar) {
-        body.avatar = {
-            url: avatar.url,
-            alt: avatar.alt || 'Profile picture'
-        };
+        body.avatar = { url: avatar.url }; 
     }
-    
     if (banner) {
-        body.banner = {
-            url: banner.url,
-            alt: banner.alt || 'Profile banner'
-        };
+        body.banner = { url: banner.url };
     }
-    
-    // Check that at least one property is provided
-    if (!bio && !avatar && !banner) {
-        showError('At least one property (bio, avatar, banner) must be provided for the update.'); // Notify user
+
+    if (Object.keys(body).length === 0) {
         throw new Error('At least one property (bio, avatar, banner) must be provided for the update.');
     }
 
     try {
-        // Send PUT request with updated post data
+        const username = loadName();
         const response = await fetch(`${API_SOCIAL_PROFILES}/${username}`, {
             method: 'PUT', 
-            headers,
+            headers: authHeaders,
             body: JSON.stringify(body)
         });
 
-        // Check if the response is okay
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Failed to update profile:', errorData);
-            showError(`Failed to update profile: ${errorData.message}`);
             throw new Error(`Failed to update profile: ${errorData.message}`);
         }
 
-        const data = await response.json();
-        return data;
+        return await response.json();
 
     } catch (error) {
         console.error('Error updating profile:', error.message);
-        showError('An unexpected error occurred while updating the profile.');
+        throw error;
     }
 }

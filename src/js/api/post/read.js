@@ -1,6 +1,7 @@
-import { API_SOCIAL_POSTS } from "../constants";
+import { API_SOCIAL_POSTS, API_SOCIAL_PROFILES } from "../constants";
 import { headers } from "../headers";
 
+// Load single post
 export async function readPost(id) {
 
     if(!id) {
@@ -18,10 +19,9 @@ export async function readPost(id) {
     }
 
     return json;
-
-
 }
 
+// Load all posts
 export async function readPosts() {
 
     const response = await fetch(`${API_SOCIAL_POSTS}?_author=true`, {
@@ -33,6 +33,23 @@ export async function readPosts() {
     if(!response.ok) {
         throw new Error(json.errors[0].message);
     }
-
     return json;
 }
+
+// Load all posts by profile
+export async function readPostsbyProfile(username) {
+
+    const response = await fetch(`${API_SOCIAL_PROFILES}/${username}/posts`, {
+        headers: headers(),
+    });
+
+    const json = await response.json();
+    console.log("Profile posts fetched successfully:", json);
+    
+    if(!response.ok) {
+        throw new Error(json.errors[0].message);
+    }
+    return json;
+}
+
+
