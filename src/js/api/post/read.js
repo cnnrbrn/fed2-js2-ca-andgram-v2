@@ -8,7 +8,7 @@ export async function readPost(id) {
         throw new Error("This call needs an id");
     }
 
-    const response = await fetch(`${API_SOCIAL_POSTS}/${id}`, {
+    const response = await fetch(`${API_SOCIAL_POSTS}/${id}?_author=true`, {
         headers: headers(),
     });
 
@@ -24,7 +24,7 @@ export async function readPost(id) {
 // Load all posts
 export async function readPosts() {
 
-    const response = await fetch(`${API_SOCIAL_POSTS}?_author=true`, {
+    const response = await fetch(`${API_SOCIAL_POSTS}`, {
         headers: headers(),
     });
 

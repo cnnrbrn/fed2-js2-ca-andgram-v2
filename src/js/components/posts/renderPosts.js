@@ -1,6 +1,3 @@
-import { renderAdminButtons } from "./renderAdminButtons";
-
-
 export function renderPosts(container, posts) {
 
     if (posts.lenght === 0) {
@@ -27,12 +24,6 @@ export function renderPosts(container, posts) {
         titleElement.innerText = title;
 
         item.appendChild(titleElement);
-
-       const adminButtons = renderAdminButtons(post);
-
-        if(adminButtons) {
-            item.appendChild(adminButtons);
-        }
     
 
         return item;
