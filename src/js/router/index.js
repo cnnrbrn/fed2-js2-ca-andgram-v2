@@ -8,7 +8,6 @@ export default async function router(pathname = window.location.pathname) {
 
   displayMenu();
 
-  console.log(pathname);
   switch (pathname) {
     case "/":
       await import("./views/home.js");

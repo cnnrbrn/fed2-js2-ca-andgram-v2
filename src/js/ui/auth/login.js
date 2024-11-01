@@ -17,7 +17,6 @@ export async function onLogin(event) {
     window.location.href = "/";
     }
     catch(error) {
-        console.log(error);
         displayMessage("#message", "error", error.message);
     }
 }

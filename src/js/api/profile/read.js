@@ -15,7 +15,6 @@ export async function readProfile(username) {
 
         const responseData = await response.json();
         const userData = responseData.data;
-        console.log("Profile data fetched successfully:", userData);
         return userData;
     } catch (error) {
         console.error("Error fetching profile data:", error);

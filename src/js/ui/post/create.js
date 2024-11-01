@@ -16,7 +16,6 @@ export async function onCreatePost(event) {
 
     
     catch(error) {
-        console.log(error);
         displayMessage("#message", "error", error.message);
     }
 }

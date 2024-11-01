@@ -16,7 +16,6 @@ const container = document.querySelector("#post");
 
 try {
     const response = await readPost(id);
-    console.log(response);
     setTitle(response.data.title);
     renderPost(container, response.data);
 } catch (error) {

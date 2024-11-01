@@ -44,7 +44,6 @@ export async function readPostsbyProfile(username) {
     });
 
     const json = await response.json();
-    console.log("Profile posts fetched successfully:", json);
     
     if(!response.ok) {
         throw new Error(json.errors[0].message);

@@ -1,4 +1,3 @@
-// Function to display profile data in profile header
 export function renderProfileHeader(userData) {
    
     if (!userData) {
@@ -10,13 +9,11 @@ export function renderProfileHeader(userData) {
     const userName = userData.name;
     const bio = userData.bio || "No bio available";
 
-    // Get placeholders from document
     const bannerElement = document.getElementById('banner-image');
     const profilePicElement = document.getElementById('profile-image');
     const profileName = document.getElementById('profile-name');
     const bioElement = document.getElementById('profile-bio');
 
-    // Check if each element exists before updating
     if (profileName) {
         profileName.textContent = userName;
     }

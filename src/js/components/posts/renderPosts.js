@@ -8,7 +8,6 @@ export function renderPosts(container, posts) {
     container.innerHTML = "";
 
     const postHtml = posts.map((post) => createPostHtml(post));
-    console.log(postHtml);
     container.append(...postHtml);
 }
 

@@ -17,7 +17,6 @@ export async function onUpdatePost(event) {
         displayMessage("#message", "success", "Post updated succesdfully.");
         form.reset();
     } catch (error) {
-        console.log(error);
         displayMessage("#message", "error", error.message);
     }
 } 

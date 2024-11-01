@@ -9,8 +9,6 @@ if(nav) {
 
     const loggedin = isAuthenticated();
 
-    console.log(loggedin);
-
     if(loggedin) {
         nav.innerHTML = `<a href="/">Home</a>
                          <a href="/profile/">My profile</a>
@@ -24,7 +22,7 @@ if(nav) {
             editProfileButton.id = "edit-profile-button";
             nav.appendChild(editProfileButton);
         }
-
+        onLogout();
     }
     else {
         nav.innerHTML = `<a href="/">Home</a>
