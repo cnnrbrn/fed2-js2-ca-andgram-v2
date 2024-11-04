@@ -12,6 +12,9 @@ export async function onCreatePost(event) {
     await createPost(data);
     displayMessage("#message", "success", "Post created succesdfully.");
     form.reset();
+    setTimeout(() => {
+        window.location.href = "/profile/";
+    }, 2000);
     }
 
     

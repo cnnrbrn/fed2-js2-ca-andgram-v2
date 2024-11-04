@@ -16,6 +16,9 @@ export async function onUpdatePost(event) {
         await updatePost(id, { title, body });
         displayMessage("#message", "success", "Post updated succesdfully.");
         form.reset();
+        setTimeout(() => {
+            window.location.href = "/profile/";
+        }, 2000);
     } catch (error) {
         displayMessage("#message", "error", error.message);
     }
