@@ -11,6 +11,8 @@ export default async function router(pathname = window.location.pathname) {
 
   switch (pathname) {
     case "/":
+      console.log(" here: /");
+
       await import("./views/home.js");
       break;
     case "/auth/":
