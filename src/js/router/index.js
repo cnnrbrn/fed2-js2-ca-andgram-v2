@@ -1,12 +1,10 @@
-const BASE_PATH = "/fed2-js2-ca-andgram"; 
+// This function controls which JavaScript file is loaded on which page
+// In order to add additional pages, you will need to implement them below
 
 import { displayMenu } from "../components/shared/displayMenu.js";
 
+// You may change the behaviour or approach of this file if you choose
 export default async function router(pathname = window.location.pathname) {
-  // Remove base path from `pathname` to get the relative route
-  pathname = pathname.includes(BASE_PATH)
-    ? pathname.replace(BASE_PATH, "")
-    : pathname;
 
   displayMenu();
 
