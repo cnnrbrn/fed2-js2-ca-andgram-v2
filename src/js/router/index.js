@@ -5,6 +5,7 @@ import { displayMenu } from "../components/shared/displayMenu.js";
 
 // You may change the behaviour or approach of this file if you choose
 export default async function router(pathname = window.location.pathname) {
+  console.log("pathname", pathname);
 
   displayMenu();
 
