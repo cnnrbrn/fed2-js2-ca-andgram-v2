@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Post</title>
+    <script type="module" crossorigin src="/fed2-js2-ca-andgram/assets/auth-fjUhtDne.js"></script>
+    <link rel="stylesheet" crossorigin href="/fed2-js2-ca-andgram/assets/auth-C85v_Doe.css">
+  </head>
+  <body class="min-h-screen flex flex-col bg-gray-100">
+    <header>
+      <nav id="top-nav" class="bg-blue-600 text-white p-4 shadow-md flex space-x-6">
+        <!-- Navigation content -->
+        <span class="font-semibold text-lg">Create Post</span>
+      </nav>
+    </header>
+  
+    <main class="flex-grow flex items-center justify-center">
+      <div class="max-w-2xl w-full mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Create Post</h1>
+  
+        <form name="createPost" class="space-y-6">
+          <div id="message"></div>
+          
+          <div>
+            <label for="title" class="block text-gray-600 mb-1">Title</label>
+            <input 
+              type="text" 
+              id="title" 
+              name="title" 
+              placeholder="Enter the title of your post" 
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" 
+            />
+          </div>
+  
+          <div>
+            <label for="body" class="block text-gray-600 mb-1">Body</label>
+            <textarea 
+              id="body" 
+              name="body" 
+              required 
+              placeholder="Enter the content of your post" 
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" 
+            ></textarea>
+          </div>
+  
+          <div>
+            <button 
+              type="submit" 
+              class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Create Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+  
+</html>
